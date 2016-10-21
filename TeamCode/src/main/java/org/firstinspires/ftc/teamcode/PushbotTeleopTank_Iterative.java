@@ -114,7 +114,6 @@ public class PushbotTeleopTank_Iterative extends OpMode{
     float elevatorDirection = 0.0f;
     boolean emergencyCode = false;
     int timer = 0;
-
     public void loop() {
 
 
