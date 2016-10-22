@@ -7,9 +7,32 @@
 // the build definitions, you can place those customizations in this file, but
 // please think carefully as to whether such customizations are really necessary
 // before doing so.
-
-
 // Custom definitions may go here
-
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+android {
+    signingConfigs {
+        config {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('C:/Users/Shane/Documents/BeepPatrol/vevo2017/ftcapp/libs/ftc.debug.keystore')
+            storePassword 'android'
+        }
+    }
+    compileSdkVersion 'Google Inc.:Google APIs:19'
+    buildToolsVersion '23.0.3'
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 19
+        signingConfig signingConfigs.config
+    }
+    productFlavors {
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+}
+dependencies {
+}
