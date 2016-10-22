@@ -32,15 +32,15 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+        import com.qualcomm.robotcore.hardware.DcMotor;
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.robot.Robot;
 //import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+        import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file provides basic Telop driving for a Pushbot robot.
@@ -68,6 +68,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
     DcMotor motorShooter;
     DcMotor motorElevator;
     DcMotor motorVacuum;
+    DcMotor motorRight2;
+    DcMotor motorLeft2;
 
 
     /*
@@ -83,6 +85,9 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         motorVacuum = hardwareMap.dcMotor.get("vacuum");
         motorShooter = hardwareMap.dcMotor.get("shooter");
         motorElevator = hardwareMap.dcMotor.get("elevator");
+        motorRight2 = hardwareMap.dcMotor.get("right2");
+        motorLeft2 = hardwareMap.dcMotor.get("left2");
+
         motorRight.setDirection(DcMotor.Direction.REVERSE);
 
         robot.init(hardwareMap);
@@ -122,6 +127,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         float rightStick = -gamepad1.right_stick_y;
         robot.leftMotor.setPower(leftStick);
         robot.rightMotor.setPower(rightStick);
+        robot.rightMotor2.setPower(rightStick);
+        robot.leftMotor2.setPower(leftStick);
 
 
         if(leftStick > 1.0)
@@ -168,7 +175,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             timer++;
             if(timer ==30)
             {
-               telemetry.addData("say", "Timer is finished");
+                telemetry.addData("say", "Timer is finished");
                 robot.motorShooter.setPower(0.0f);
                 timer = 0;
 
@@ -194,13 +201,13 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         {
             elevatorDirection = 0.0f;
         }
-            robot.motorElevator.setPower(elevatorDirection);
+        robot.motorElevator.setPower(elevatorDirection);
 
         //reversing the elvator and vacuum if we grab the wrong ball
 
         if(gamepad1.a && !emergencyCode)
         {
-         emergencyCode = true;
+            emergencyCode = true;
         }
         if(gamepad1.a && emergencyCode)
         {
