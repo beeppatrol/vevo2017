@@ -58,7 +58,7 @@ package org.firstinspires.ftc.teamcode;
  */
 
 @TeleOp(name="Beep", group="TeleOp")
-@Disabled
+// @Disabled
 public class PushbotTeleopTank_Iterative extends OpMode{
 
     /* Declare OpMode members. */

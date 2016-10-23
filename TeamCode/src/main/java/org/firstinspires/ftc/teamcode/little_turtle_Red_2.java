@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Avery on 10/22/2016.
  */
-@Autonomous (name = "little_turtle_Red_1", group = "Autonomous OpMode")
+@Autonomous (name = "little_turtle_Red_2", group = "Autonomous OpMode")
 public class little_turtle_Red_2 extends OpMode{
     static double timer=0;
     DcMotor leftMotorBack;
