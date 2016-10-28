@@ -82,7 +82,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          */
         motorRight = hardwareMap.dcMotor.get("right");
         motorLeft = hardwareMap.dcMotor.get("left");
-//        motorVacuum = hardwareMap.dcMotor.get("vacuum");
+        motorVacuum = hardwareMap.dcMotor.get("vacuum");
         motorShooter = hardwareMap.dcMotor.get("shooter");
         motorElevator = hardwareMap.dcMotor.get("elevator");
         motorRight2 = hardwareMap.dcMotor.get("right2");
@@ -172,12 +172,13 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         //shooter
         if(gamepad2.left_bumper)
         {
-            robot.motorShooter.setPower(1.0f);
+//            robot.motorShooter.setPower(1.0f);
             timer++;
             if(timer ==30)
             {
                 telemetry.addData("say", "Timer is finished");
-                robot.motorShooter.setPower(0.0f);
+//                robot.motorShooter.setPower(0.0f);
+
                 timer = 0;
 
             }
@@ -202,7 +203,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         {
             elevatorDirection = 0.0f;
         }
-        robot.motorElevator.setPower(elevatorDirection);
+//        robot.motorElevator.setPower(elevatorDirection);
 
         //reversing the elvator and vacuum if we grab the wrong ball
 
