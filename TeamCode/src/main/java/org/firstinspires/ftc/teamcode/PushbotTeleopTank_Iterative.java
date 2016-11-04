@@ -65,9 +65,9 @@ public class PushbotTeleopTank_Iterative extends OpMode{
     HardwarePushbot robot = new HardwarePushbot();
     DcMotor motorRight;
     DcMotor motorLeft;
-    DcMotor motorShooter;
-    DcMotor motorElevator;
-    DcMotor motorVacuum;
+//    DcMotor motorShooter;
+//    DcMotor motorElevator;
+//    DcMotor motorVacuum;
     DcMotor motorRight2;
     DcMotor motorLeft2;
 
@@ -80,18 +80,18 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
          */
-        motorRight = hardwareMap.dcMotor.get("right");
-        motorLeft = hardwareMap.dcMotor.get("left");
-        motorVacuum = hardwareMap.dcMotor.get("vacuum");
-        motorShooter = hardwareMap.dcMotor.get("shooter");
-        motorElevator = hardwareMap.dcMotor.get("elevator");
-        motorRight2 = hardwareMap.dcMotor.get("right2");
-        motorLeft2 = hardwareMap.dcMotor.get("left2");
+        motorRight = hardwareMap.dcMotor.get("right_drive");
+        motorLeft = hardwareMap.dcMotor.get("left_drive");
+        //motorVacuum = hardwareMap.dcMotor.get("vacuum");
+        //motorShooter = hardwareMap.dcMotor.get("shooter");
+        //motorElevator = hardwareMap.dcMotor.get("elevator");
+        motorRight2 = hardwareMap.dcMotor.get("right_drive2");
+        motorLeft2 = hardwareMap.dcMotor.get("left_drive2");
+        telemetry.addData("Say", "motors ready");    //
 
         motorRight.setDirection(DcMotor.Direction.REVERSE);
 
         robot.init(hardwareMap);
-
 
         telemetry.addData("Say", "robot ready");    //
     }
@@ -101,6 +101,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
      */
     @Override
     public void init_loop() {
+
     }
 
     /*
@@ -108,105 +109,106 @@ public class PushbotTeleopTank_Iterative extends OpMode{
      */
     @Override
     public void start() {
+
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
+
     boolean vacuumOn = false;
     float vacuumDirection = 0.0f;
     boolean elevatorOn = false;
     float elevatorDirection = 0.0f;
     boolean emergencyCode = false;
     int timer = 0;
+    /*
+     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+     */
     public void loop() {
 
+            telemetry.addData("Start loop", "1");
 
-        //wheels
-        float  leftStick = -gamepad1.left_stick_y;
-        float rightStick = -gamepad1.right_stick_y;
-        robot.leftMotor.setPower(leftStick);
-        robot.rightMotor.setPower(rightStick);
-        robot.rightMotor2.setPower(rightStick);
-        robot.leftMotor2.setPower(leftStick);
+            //wheels
+            float leftStick = -gamepad1.left_stick_y;
+            float rightStick = -gamepad1.right_stick_y;
 
+            robot.leftMotor.setPower(leftStick);
+            robot.rightMotor.setPower(rightStick);
+            robot.rightMotor2.setPower(rightStick); // is null
+            robot.leftMotor2.setPower(leftStick);   // is null
 
-        if(leftStick > 1.0)
-        {
-            leftStick = 1;
-        }
-        if(leftStick < -1.0)
-        {
-            leftStick = -1;
-        }
-        if(rightStick > 1.0)
-        {
-            rightStick = 1;
-        }
-        if(rightStick < -1.0)
-        {
-            rightStick = -1;
-        }
-        //vacuum
-        //!vacuumOn is the same as vacuumOn ==false
-        if(gamepad1.right_bumper && !vacuumOn)
-        {
-            vacuumOn = true;
-        }
-        if(gamepad1.right_bumper && vacuumOn)
-        {
-            vacuumOn = false;
-        }
-        if(vacuumOn && !emergencyCode)
-        {
-            vacuumDirection =1.0f;
-        }
-        if(!vacuumOn && !emergencyCode)
-        {
-            vacuumDirection = 0.0f;
-        }
+            telemetry.addData("Start loop", "2");
 
-        // TODO: fix this:
-        // robot.motorVacuum.setPower(vacuumDirection);
+            if (leftStick > 1.0) {
+                leftStick = 1;
+            }
+            if (leftStick < -1.0) {
+                leftStick = -1;
+            }
+            if (rightStick > 1.0) {
+                rightStick = 1;
+            }
+            if (rightStick < -1.0) {
+                rightStick = -1;
+            }
 
-        //shooter
-        if(gamepad2.left_bumper)
-        {
+            telemetry.addData("Start loop", "3");
+
+            //vacuum
+            //!vacuumOn is the same as vacuumOn ==false
+            if (gamepad1.right_bumper && !vacuumOn) {
+                vacuumOn = true;
+            }
+            if (gamepad1.right_bumper && vacuumOn) {
+                vacuumOn = false;
+            }
+            if (vacuumOn && !emergencyCode) {
+                vacuumDirection = 1.0f;
+            }
+            if (!vacuumOn && !emergencyCode) {
+                vacuumDirection = 0.0f;
+            }
+
+            // TODO: fix this:
+            // robot.motorVacuum.setPower(vacuumDirection);
+
+            //shooter
+            telemetry.addData("Start loop", "4");
+
+            if (gamepad2.left_bumper) {
 //            robot.motorShooter.setPower(1.0f);
-            timer++;
-            if(timer ==30)
-            {
-                telemetry.addData("say", "Timer is finished");
+                timer++;
+                if (timer == 30) {
+                    telemetry.addData("say", "Timer is finished");
 //                robot.motorShooter.setPower(0.0f);
 
-                timer = 0;
+                    timer = 0;
+
+                }
 
             }
 
-        }
-
-        //elevator
-
-        if(gamepad1.left_bumper && !elevatorOn)
-        {
-            elevatorOn=true;
-        }
-        if(gamepad1.left_bumper && elevatorOn)
-        {
-            elevatorOn = false;
-        }
-        if(elevatorOn)
-        {
-            elevatorDirection = 1.0f;
-        }
-        if(!elevatorOn)
-        {
-            elevatorDirection = 0.0f;
-        }
+            //elevator
+//
+//        if(gamepad1.left_bumper && !elevatorOn)
+//        {
+//            elevatorOn=true;
+//        }
+//        if(gamepad1.left_bumper && elevatorOn)
+//        {
+//            elevatorOn = false;
+//        }
+//        if(elevatorOn)
+//        {
+//            elevatorDirection = 1.0f;
+//        }
+//        if(!elevatorOn)
+//        {
+//            elevatorDirection = 0.0f;
+//        }
 //        robot.motorElevator.setPower(elevatorDirection);
 
-        //reversing the elvator and vacuum if we grab the wrong ball
+            //reversing the elvator and vacuum if we grab the wrong ball
 
+/*
         if(gamepad1.a && !emergencyCode)
         {
             emergencyCode = true;
@@ -222,20 +224,18 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             vacuumDirection = -1.0f;
 
         }
+*/
 
 
+            // Use gamepad buttons to move the arm up (Y) and down (A)
 
 
+            // Send telemetry message to signify robot running;
+
+            telemetry.addData("left", "%.2f", leftStick);
+            telemetry.addData("right", "%.2f", rightStick);
 
 
-
-        // Use gamepad buttons to move the arm up (Y) and down (A)
-
-
-        // Send telemetry message to signify robot running;
-
-        telemetry.addData("left",  "%.2f", leftStick);
-        telemetry.addData("right", "%.2f", rightStick);
     }
 
     /*
