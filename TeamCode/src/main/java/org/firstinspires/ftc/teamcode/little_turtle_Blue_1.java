@@ -23,13 +23,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous (name = "little_turtle_Blue_1", group = "Autonomous OpMode")
 public class little_turtle_Blue_1 extends OpMode{
     static double timer=0;
-    DcMotor leftMotorBack;
-    DcMotor leftMotorFront;
-    DcMotor rightMotorBack;
-    DcMotor rightMotorFront;
-    DcMotor vacuumMotor;
-    DcMotor elevatorMotor;
-    DcMotor shooterMotor;
+    public DcMotor leftMotorBack;
+    public DcMotor leftMotorFront;
+    public DcMotor rightMotorBack;
+   public DcMotor rightMotorFront;
+    public DcMotor vacuumMotor;
+    public DcMotor elevatorMotor;
+   public DcMotor shooterMotor;
 
 
 
@@ -47,9 +47,26 @@ public class little_turtle_Blue_1 extends OpMode{
     }
 
 
+    public void driveForwards(float amount)
+    {
+        rightMotorFront.setPower(1.0f);
+        rightMotorBack.setPower(1.0f);
+        leftMotorFront.setPower(1.0f);
+        leftMotorBack.setPower(1.0f);
 
+        rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        new DcMotor.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+         leftMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+        //if (){
+
+    }
     public void init(){
 //EDIT THESE VALUES TO MAKE THE PROPER STRENGTH
+
 }
 public void loop(){
     int v_state = 0;
