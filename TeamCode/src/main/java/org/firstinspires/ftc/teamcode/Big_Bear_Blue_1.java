@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
 /**
@@ -13,6 +14,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name = "Big_Bear_Blue_1", group = "Autonomous_OpMode")
 public class Big_Bear_Blue_1 extends OpMode{
+    HardwarePushbot robot   = new HardwarePushbot();
     static double timer =0;
     DcMotor rightMotorFront;
     DcMotor rightMotorBack;
@@ -25,13 +27,25 @@ public class Big_Bear_Blue_1 extends OpMode{
 
     }
 
-    public void driveForwards()
+    public void driveForwards(float ammount)
     {
         rightMotorFront.setPower(1.0f);
         rightMotorBack.setPower(1.0f);
         leftMotorFront.setPower(1.0f);
         leftMotorBack.setPower(1.0f);
-    }
+        rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+
+        //if (){
+
+        }
+
+
+
     public void turnLeft()
     {
         rightMotorFront.setPower(1.0f);
@@ -61,6 +75,27 @@ public class Big_Bear_Blue_1 extends OpMode{
     }
     public void shootParticle(){
         //the code that will do this
+    }
+    public void run_using_left_encoders ()
+    {
+
+            leftMotorBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            leftMotorFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+    public void run_using_right_encoders ()
+    {
+
+            rightMotorBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            rightMotorFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+
+    public void encoderDrive ()
+    {
+        int newLeftTarget;
+        int newRightTarget;
+        newLeftTarget = robot.leftMotor
     }
 
     @Override
