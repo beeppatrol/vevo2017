@@ -54,11 +54,11 @@ public class little_turtle_Blue_1 extends OpMode{
         leftMotorFront.setPower(1.0f);
         leftMotorBack.setPower(1.0f);
 
-        rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       /* rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         new DcMotor.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
          leftMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+*/
 
 
         //if (){
