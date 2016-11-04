@@ -133,7 +133,7 @@ public class Big_Bear_Blue_1 extends OpMode{
             //nothing
 
             case 2:
-                driveForwards();
+                driveForwards(1000, 1000);
                 timer++;
                 if (timer == 30) {
                     stopDrive();
@@ -181,7 +181,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 break;
             //turning into line TO DO: MAKE TURN BASED OFF COLOR SENSOR
             case 14:
-                driveForwards();
+                driveForwards(1000, 1000);
                 timer++;
                 if(timer ==10)
                 {
