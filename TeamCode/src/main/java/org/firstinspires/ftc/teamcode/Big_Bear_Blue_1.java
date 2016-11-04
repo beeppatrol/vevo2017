@@ -27,16 +27,51 @@ public class Big_Bear_Blue_1 extends OpMode{
 
     }
 
-    public void driveForwards(float ammount)
+    public void driveForwards( double rightAmount, double leftAmount)
     {
         rightMotorFront.setPower(1.0f);
         rightMotorBack.setPower(1.0f);
         leftMotorFront.setPower(1.0f);
         leftMotorBack.setPower(1.0f);
+        final double     COUNTS_PER_MOTOR_REV    = 1440 ;
+        final double     DRIVE_GEAR_REDUCTION    = 2.0 ;
+        final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
+        final double     COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION);
+
+        final double     DRIVE_SPEED             = 0.6;
+        final double     TURN_SPEED              = 0.5;
+
+        int newLeftTarget;
+        int newRightTarget;
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftAmount * COUNTS_PER_INCH);
+        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
+        robot.leftMotor.setTargetPosition(newLeftTarget);
+        robot.leftMotor2.setTargetPosition(newLeftTarget);
+        robot.rightMotor.setTargetPosition(newRightTarget);
+        robot.rightMotor2.setTargetPosition(newRightTarget);
+
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.leftMotor.setPower(1.0f);
+        robot.leftMotor2.setPower(1.0f);
+        robot.rightMotor.setPower(1.0f);
+        robot.rightMotor2.setPower (1.0f);
+
+        if(leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotorBack.isBusy() && rightMotorFront.isBusy()){
+            robot.leftMotor.setPower (0.0f);
+            robot.rightMotor.setPower (0.0f);
+            robot.leftMotor2.setPower(0.0f);
+            robot.rightMotor2.setPower(0.0f);
+        }
+
         rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
 
 
@@ -76,27 +111,9 @@ public class Big_Bear_Blue_1 extends OpMode{
     public void shootParticle(){
         //the code that will do this
     }
-    public void run_using_left_encoders ()
-    {
 
-            leftMotorBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            leftMotorFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-    }
-    public void run_using_right_encoders ()
-    {
 
-            rightMotorBack.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            rightMotorFront.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-    }
-
-    public void encoderDrive ()
-    {
-        int newLeftTarget;
-        int newRightTarget;
-        newLeftTarget = robot.leftMotor
-    }
 
     @Override
     public void loop() {
