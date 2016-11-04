@@ -67,10 +67,10 @@ public class Big_Bear_Blue_1 extends OpMode{
             robot.rightMotor2.setPower(0.0f);
         }
 
-        rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       /* rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         leftMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER); */
 
 
 
