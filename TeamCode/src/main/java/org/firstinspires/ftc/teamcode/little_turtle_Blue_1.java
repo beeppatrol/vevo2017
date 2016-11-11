@@ -67,7 +67,45 @@ public class little_turtle_Blue_1 extends OpMode{
     public void init(){
 //EDIT THESE VALUES TO MAKE THE PROPER STRENGTH
 
-}
+} public void turnLeft(float Power)
+    {
+        rightMotorFront.setPower(Power);
+        rightMotorBack.setPower(Power);
+
+        leftMotorFront.setPower(-Power);
+        leftMotorBack.setPower(-Power);
+    }
+
+    public void turnRight(float Power){
+        rightMotorFront.setPower(-Power);
+        rightMotorBack.setPower(-Power);
+        leftMotorFront.setPower(Power);
+        leftMotorBack.setPower(Power);
+    }
+    public void driveBackwards(float Power)
+    {
+        rightMotorFront.setPower(-Power);
+        rightMotorBack.setPower(-Power);
+        leftMotorFront.setPower(-Power);
+        leftMotorBack.setPower(-Power);
+    }
+    public void stopDrive()
+    {
+        rightMotorFront.setPower(0.0f);
+        rightMotorBack.setPower(0.0f);
+        leftMotorFront.setPower(0.0f);
+        leftMotorBack.setPower(0.0f);
+    }
+    public void DriveForwards(float Power)
+    {
+        rightMotorFront.setPower(Power);
+        rightMotorBack.setPower(Power);
+        leftMotorFront.setPower(Power);
+        leftMotorBack.setPower(Power);
+    }
+    public void shootParticle(){
+        //the code that will do this
+    }
 public void loop(){
     int v_state = 0;
     switch (v_state)
