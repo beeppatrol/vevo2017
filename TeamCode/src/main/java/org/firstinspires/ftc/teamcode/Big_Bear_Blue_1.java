@@ -95,10 +95,10 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.leftMotor.setPower(1.0f);
-        robot.leftMotor2.setPower(1.0f);
-        robot.rightMotor.setPower(1.0f);
-        robot.rightMotor2.setPower(1.0f);
+        robot.leftMotor.setPower(-1.0f);
+        robot.leftMotor2.setPower(-1.0f);
+        robot.rightMotor.setPower(-1.0f);
+        robot.rightMotor2.setPower(-1.0f);
 
         if (leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotorBack.isBusy() && rightMotorFront.isBusy()) {
             robot.leftMotor.setPower(0.0f);
@@ -218,13 +218,6 @@ public class Big_Bear_Blue_1 extends OpMode{
 
 
 
-    public void driveBackwards()
-    {
-        rightMotorFront.setPower(-1.0f);
-        rightMotorBack.setPower(-1.0f);
-        leftMotorFront.setPower(-1.0f);
-        leftMotorBack.setPower(-1.0f);
-    }
 
     public void shootParticle(){
         //the code that will do this
@@ -315,7 +308,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 v_state = 20;
                 break;
             case 22:
-                driveBackwards();
+                driveBackwards(1,1);
                 timer++;
                 if(timer ==10)
                 {
