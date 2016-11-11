@@ -186,7 +186,7 @@ public class Big_Bear_Blue_1 extends OpMode{
         leftMotorFront.setPower(-1.0f);
         leftMotorBack.setPower(-1.0f);
     }
-    
+
     public void shootParticle(){
         //the code that will do this
     }
@@ -215,7 +215,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 driveForwards(1000, 1000);
                 timer++;
                 if (timer == 30) {
-                    stopDrive();
+
                     timer = 0;
                     v_state = 4;
                     break;
@@ -233,7 +233,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 timer++;
                 if(timer==100)
                 {
-                    stopDrive();
+
                     timer = 0;
                     v_state=8;
                     break;
@@ -253,7 +253,6 @@ public class Big_Bear_Blue_1 extends OpMode{
                 turnLeft(1,1);
                 timer++;
                 if (timer == 100){
-                   stopDrive();
 
                 }
                 v_state = 14;
@@ -264,7 +263,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 timer++;
                 if(timer ==10)
                 {
-                   stopDrive();
+
                     v_state = 16;
                     break;
                 }
@@ -281,7 +280,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 timer++;
                 if(timer ==10)
                 {
-                   stopDrive();
+
                     v_state = 20;
                     break;
                 }
@@ -294,7 +293,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 timer++;
                 if(timer ==80)
                 {
-                stopDrive();
+               
                     v_state =26;
                     break;
                 }
