@@ -6,7 +6,7 @@ package org.firstinspires.ftc.teamcode;
 public class AwesomeJavaClass {
 
     public void SeanIsAwesome () {
-        // Wes might be...  we'll see!!
+        // Wes might be...  we'll see!! Bananas aren't potatos but the world has ended.
     }
 
 }
