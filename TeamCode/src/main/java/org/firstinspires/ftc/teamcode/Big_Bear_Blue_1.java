@@ -128,12 +128,57 @@ public class Big_Bear_Blue_1 extends OpMode{
 
 
 
-    public void turnRight(){
+    public void turnRight(double rightAmount, double leftAmount){
+
+        final double Counts_Per_Motor_Rev  = 1440;
+        final double Drive_Gear_Reduction = 2.0;
+        final double Wheel_Diameter_Inches = 4.0;
+        final double Counts_Per_Inch = (Drive_Gear_Reduction * Counts_Per_Motor_Rev);
+        final double Drive_Speed = 0.6;
+        final double Turn_Speed = 0.5;
+
+        int newLeftTarget;
+        int newRightTarget;
+        //get target
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftAmount * Counts_Per_Inch);
+        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * Counts_Per_Inch);
+        //inform motor of there target
+        robot.leftMotor.setTargetPosition(newLeftTarget);
+        robot.rightMotor.setTargetPosition(newRightTarget);
+        robot.leftMotor2.setTargetPosition(newLeftTarget);
+        robot.rightMotor2.setTargetPosition(newRightTarget);
+        //tell motors to go to the target
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //give motors the means to go to the target
+
+
         rightMotorFront.setPower(-1.0f);
         rightMotorBack.setPower(-1.0f);
         leftMotorFront.setPower(1.0f);
         leftMotorBack.setPower(1.0f);
+
+        if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotorFront.isBusy() && rightMotorBack.isBusy())
+        {
+            robot.leftMotor.setPower(0.0f);
+            robot.rightMotor.setPower(0.0f);
+            robot.leftMotor2.setPower(0.0f);
+            robot.rightMotor2.setPower(0.0f);
+
+
+
+        }
+
+
+
     }
+
+
+
+
+
     public void driveBackwards()
     {
         rightMotorFront.setPower(-1.0f);
@@ -141,13 +186,7 @@ public class Big_Bear_Blue_1 extends OpMode{
         leftMotorFront.setPower(-1.0f);
         leftMotorBack.setPower(-1.0f);
     }
-    public void stopDrive()
-    {
-        rightMotorFront.setPower(0.0f);
-        rightMotorBack.setPower(0.0f);
-        leftMotorFront.setPower(0.0f);
-        leftMotorBack.setPower(0.0f);
-    }
+
     public void shootParticle(){
         //the code that will do this
     }
@@ -176,7 +215,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 driveForwards(1000, 1000);
                 timer++;
                 if (timer == 30) {
-                    stopDrive();
+
                     timer = 0;
                     v_state = 4;
                     break;
@@ -190,11 +229,11 @@ public class Big_Bear_Blue_1 extends OpMode{
 
 
             case 6:
-                turnRight();
+                turnRight(1,1);
                 timer++;
                 if(timer==100)
                 {
-                    stopDrive();
+
                     timer = 0;
                     v_state=8;
                     break;
@@ -211,10 +250,9 @@ public class Big_Bear_Blue_1 extends OpMode{
                 break;
             //advancing to beacon and a little further
             case 12:
-                turnLeft();
+                turnLeft(1,1);
                 timer++;
                 if (timer == 100){
-                   stopDrive();
 
                 }
                 v_state = 14;
@@ -225,7 +263,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 timer++;
                 if(timer ==10)
                 {
-                   stopDrive();
+
                     v_state = 16;
                     break;
                 }
@@ -242,7 +280,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 timer++;
                 if(timer ==10)
                 {
-                   stopDrive();
+
                     v_state = 20;
                     break;
                 }
@@ -251,11 +289,11 @@ public class Big_Bear_Blue_1 extends OpMode{
                 v_state = 24;
                 break;
             case 24:
-                turnRight();
+                turnRight(48743,8);
                 timer++;
                 if(timer ==80)
                 {
-                stopDrive();
+               
                     v_state =26;
                     break;
                 }
