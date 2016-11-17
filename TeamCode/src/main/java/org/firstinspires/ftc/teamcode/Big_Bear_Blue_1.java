@@ -62,10 +62,10 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor2.setPower (1.0f);
 
         if(leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotorBack.isBusy() && rightMotorFront.isBusy()){
-            robot.leftMotor.setPower (0.0f);
-            robot.rightMotor.setPower (0.0f);
-            robot.leftMotor2.setPower(0.0f);
-            robot.rightMotor2.setPower(0.0f);
+            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }}
     public void driveBackwards( double rightAmount, double leftAmount) {//THESE VALUES HAVE NOT BEEN CHANGED
         //probably not needed
@@ -101,10 +101,10 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor2.setPower(-1.0f);
 
         if (leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotorBack.isBusy() && rightMotorFront.isBusy()) {
-            robot.leftMotor.setPower(0.0f);
-            robot.rightMotor.setPower(0.0f);
-            robot.leftMotor2.setPower(0.0f);
-            robot.rightMotor2.setPower(0.0f);
+            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
        /* rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -153,10 +153,10 @@ public class Big_Bear_Blue_1 extends OpMode{
 
         if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotorFront.isBusy() && rightMotorBack.isBusy())
         {
-          robot.leftMotor.setPower(0.0f);
-            robot.rightMotor.setPower(0.0f);
-            robot.leftMotor2.setPower(0.0f);
-            robot.rightMotor2.setPower(0.0f);
+            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -201,10 +201,15 @@ public class Big_Bear_Blue_1 extends OpMode{
 
         if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotorFront.isBusy() && rightMotorBack.isBusy())
         {
-            robot.leftMotor.setPower(0.0f);
+            //JUST IN CASE WE NEED IT oops all caps`
+            /*robot.leftMotor.setPower(0.0f);
             robot.rightMotor.setPower(0.0f);
             robot.leftMotor2.setPower(0.0f);
-            robot.rightMotor2.setPower(0.0f);
+            robot.rightMotor2.setPower(0.0f);*/
+            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 

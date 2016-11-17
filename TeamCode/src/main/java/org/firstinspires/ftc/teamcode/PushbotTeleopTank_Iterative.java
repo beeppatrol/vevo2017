@@ -129,26 +129,28 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             //wheels
             float leftStick = -gamepad1.left_stick_y;
             float rightStick = -gamepad1.right_stick_y;
+        if (leftStick > 1.0) {
+            leftStick = 1;
+        }
+        if (leftStick < -1.0) {
+            leftStick = -1;
+        }
+        if (rightStick > 1.0) {
+            rightStick = 1;
+        }
+        if (rightStick < -1.0) {
+            rightStick = -1;
+        }
 
             robot.leftMotor.setPower(leftStick);
+            robot.leftMotor2.setPower(leftStick);
             robot.rightMotor.setPower(rightStick);
             robot.rightMotor2.setPower(rightStick); // is null
-            robot.leftMotor2.setPower(leftStick);   // is null
+               // is null
 
             telemetry.addData("Start loop", "2");
 
-            if (leftStick > 1.0) {
-                leftStick = 1;
-            }
-            if (leftStick < -1.0) {
-                leftStick = -1;
-            }
-            if (rightStick > 1.0) {
-                rightStick = 1;
-            }
-            if (rightStick < -1.0) {
-                rightStick = -1;
-            }
+
 
             telemetry.addData("Start loop", "3");
 
