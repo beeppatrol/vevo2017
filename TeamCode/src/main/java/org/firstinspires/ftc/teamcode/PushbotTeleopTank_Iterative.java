@@ -145,7 +145,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             robot.leftMotor.setPower(leftStick);
             robot.leftMotor2.setPower(leftStick);
             robot.rightMotor.setPower(rightStick);
-            robot.rightMotor2.setPower(rightStick); // is null
+          //  robot.rightMotor2.setPower(rightStick); // is null
                // is null
 
             telemetry.addData("Start loop", "2");
