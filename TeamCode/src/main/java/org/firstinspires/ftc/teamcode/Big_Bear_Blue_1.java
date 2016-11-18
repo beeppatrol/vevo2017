@@ -16,10 +16,11 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class Big_Bear_Blue_1 extends OpMode{
     HardwarePushbot robot   = new HardwarePushbot();
     static double timer =0;
-    DcMotor rightMotorFront;
-    DcMotor rightMotorBack;
+    DcMotor rightMotor;
+   // DcMotor rightMotorBack;
     DcMotor leftMotorFront;
     DcMotor leftMotorBack;
+    public boolean finishedRunning = false;
 
 
     @Override
@@ -61,11 +62,12 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor.setPower(1.0f);
         robot.rightMotor2.setPower (1.0f);
 
-        if(leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotorBack.isBusy() && rightMotorFront.isBusy()){
+        if(leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotor.isBusy()){
             leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            finishedRunning = true;
+            //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }}
     public void driveBackwards( double rightAmount, double leftAmount) {//THESE VALUES HAVE NOT BEEN CHANGED
         //probably not needed
@@ -100,11 +102,12 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor.setPower(-1.0f);
         robot.rightMotor2.setPower(-1.0f);
 
-        if (leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotorBack.isBusy() && rightMotorFront.isBusy()) {
+        if (leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotor.isBusy()) {
             leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            finishedRunning =true;
+            //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }
 
        /* rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -146,17 +149,18 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //give motors the means to go to the target
-        rightMotorFront.setPower(1.0f);
-        rightMotorBack.setPower(1.0f);
+        rightMotor.setPower(1.0f);
+        //rightMotorBack.setPower(1.0f);
         leftMotorFront.setPower(-1.0f);
         leftMotorBack.setPower(-1.0f);
 
-        if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotorFront.isBusy() && rightMotorBack.isBusy())
+        if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotor.isBusy())
         {
             leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            finishedRunning = true;
+            //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -194,12 +198,12 @@ public class Big_Bear_Blue_1 extends OpMode{
         //give motors the means to go to the target
 
 
-        rightMotorFront.setPower(-1.0f);
-        rightMotorBack.setPower(-1.0f);
+        rightMotor.setPower(-1.0f);
+       // rightMotorBack.setPower(-1.0f);
         leftMotorFront.setPower(1.0f);
         leftMotorBack.setPower(1.0f);
 
-        if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotorFront.isBusy() && rightMotorBack.isBusy())
+        if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotor.isBusy())
         {
             //JUST IN CASE WE NEED IT oops all caps`
             /*robot.leftMotor.setPower(0.0f);
@@ -208,8 +212,9 @@ public class Big_Bear_Blue_1 extends OpMode{
             robot.rightMotor2.setPower(0.0f);*/
             leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            finishedRunning = true;
+           // rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -234,8 +239,8 @@ public class Big_Bear_Blue_1 extends OpMode{
     @Override
     public void loop() {
         int v_state = 0;
-        rightMotorFront = hardwareMap.dcMotor.get("rightMotor1");
-        rightMotorBack = hardwareMap.dcMotor.get("rightMotor2");
+        rightMotor = hardwareMap.dcMotor.get("rightMotor1");
+       // rightMotorBack = hardwareMap.dcMotor.get("rightMotor2");
         leftMotorFront = hardwareMap.dcMotor.get("leftMotor1");
         leftMotorBack = hardwareMap.dcMotor.get("leftMotor2");
 
@@ -244,73 +249,80 @@ public class Big_Bear_Blue_1 extends OpMode{
 
         switch (v_state) {
             case 0:
-                v_state = 2;
+                v_state  ++;
                 break;
             //nothing
 
-            case 2:
-                driveForwards(1000, 1000);
-                timer++;
-                if (timer == 30) {
+            case 1:
+                driveForwards(3, 3);
+                if(finishedRunning ==true) {
 
-                    timer = 0;
-                    v_state = 4;
+                    v_state ++;
                     break;
-                }// start program by going forwards
 
-            case 4:
-                timer = 0;
-                v_state = 6;
-                break;
+                }
+
+
+                // start program by going forwards
+
+            case 2:
+                finishedRunning =false;
+                if(finishedRunning ==false){
+                    v_state ++;
+                    break;
+                }
+
             // reset timers
 
 
-            case 6:
-                turnRight(1,1);
-                timer++;
-                if(timer==100)
+            case 3:
+                turnRight(0.38 , 0.38);
+
+                if(finishedRunning == true)
                 {
 
-                    timer = 0;
-                    v_state=8;
+
+                    v_state ++;
                     break;
                 }
                 //turning before advancing towards beacon
-            case 8:
-                timer = 0;
-                v_state = 10;
-                break;
+            case 4:
+                finishedRunning = false;
+                if(finishedRunning ==false) {
+                    v_state++;
+                    break;
+                }
             // reset timers
-            case 10:
+            case 5:
                 //color sensing required
-                v_state = 12;
+                v_state ++;
                 break;
             //advancing to beacon and a little further
-            case 12:
+            case 6:
                 turnLeft(1,1);
                 timer++;
                 if (timer == 100){
 
                 }
-                v_state = 14;
+                v_state ++;
                 break;
             //turning into line TO DO: MAKE TURN BASED OFF COLOR SENSOR
-            case 14:
+            case 7:
                 driveForwards(1000, 1000);
                 timer++;
                 if(timer ==10)
                 {
 
-                    v_state = 16;
+                    v_state ++;
                     break;
                 }
-            case 16:
+            case 8:
                 //colour sensor required
-                v_state = 18;
+                v_state ++;
                 break;
-            case 18:
+            case 9:
                 //requires parts we don't have on robot yet yay! (the yay is sarcastic)
-                v_state = 20;
+                v_state ++;
                 break;
             case 22:
                 driveBackwards(1,1);
@@ -318,12 +330,12 @@ public class Big_Bear_Blue_1 extends OpMode{
                 if(timer ==10)
                 {
 
-                    v_state = 20;
+                    v_state ++;
                     break;
                 }
             case 20:
                 shootParticle();
-                v_state = 24;
+                v_state ++;
                 break;
             case 24:
                 turnRight(48743,8);
@@ -331,7 +343,7 @@ public class Big_Bear_Blue_1 extends OpMode{
                 if(timer ==80)
                 {
                
-                    v_state =26;
+                    v_state ++;
                     break;
                 }
             case 26:
