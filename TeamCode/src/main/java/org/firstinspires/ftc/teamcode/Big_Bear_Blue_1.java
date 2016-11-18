@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -21,6 +22,7 @@ public class Big_Bear_Blue_1 extends OpMode{
     DcMotor leftMotorFront;
     DcMotor leftMotorBack;
     public boolean finishedRunning = false;
+ColorSensor colorSensor;
 
 
     @Override
@@ -243,7 +245,7 @@ public class Big_Bear_Blue_1 extends OpMode{
        // rightMotorBack = hardwareMap.dcMotor.get("rightMotor2");
         leftMotorFront = hardwareMap.dcMotor.get("leftMotor1");
         leftMotorBack = hardwareMap.dcMotor.get("leftMotor2");
-
+        colorSensor = hardwareMap.colorSensor.get("colorSensor");
 
 
 
