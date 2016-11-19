@@ -32,10 +32,13 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+        //import com.qualcomm.robotcore.eventloop.opmode.Disabled;
         import com.qualcomm.robotcore.eventloop.opmode.OpMode;
         import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+        import com.qualcomm.robotcore.hardware.ColorSensor;
         import com.qualcomm.robotcore.hardware.DcMotor;
+        import com.qualcomm.robotcore.hardware.CRServo;
+
 //import com.qualcomm.robotcore.hardware.DcMotorSimple;
 //import com.qualcomm.robotcore.robot.Robot;
 //import com.qualcomm.robotcore.util.Range;
@@ -59,18 +62,22 @@ package org.firstinspires.ftc.teamcode;
 
 @TeleOp(name="Beep", group="TeleOp")
 // @Disabled
-public class PushbotTeleopTank_Iterative extends OpMode{
+  class PushbotTeleopTank_Iterative extends OpMode{
 
     /* Declare OpMode members. */
-    HardwarePushbot robot = new HardwarePushbot();
-    DcMotor motorRight;
-    DcMotor motorLeft;
+    private HardwarePushbot robot = new HardwarePushbot();
+   private DcMotor motorRight;
+    private DcMotor motorLeft;
 //    DcMotor motorShooter;
 //    DcMotor motorElevator;
 //    DcMotor motorVacuum;
-    DcMotor motorRight2;
-    DcMotor motorLeft2;
+   // DcMotor motorRight2;
+    private DcMotor motorLeft2;
+    ColorSensor colorSensor;
+    public CRServo elevator;
+   public CRServo vacuum;
 
+    DcMotor shooter;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -85,7 +92,12 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         //motorVacuum = hardwareMap.dcMotor.get("vacuum");
         //motorShooter = hardwareMap.dcMotor.get("shooter");
         //motorElevator = hardwareMap.dcMotor.get("elevator");
-        motorRight2 = hardwareMap.dcMotor.get("right_drive2");
+        //motorRight2 = hardwareMap.dcMotor.get("right_drive2");
+        colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        elevator= hardwareMap.crservo.get ("elevator");
+        vacuum = hardwareMap.crservo.get ("vacuum");
+        shooter = hardwareMap.dcMotor.get("motorShooter");
+
         motorLeft2 = hardwareMap.dcMotor.get("left_drive2");
         telemetry.addData("Say", "motors ready");    //
 
@@ -113,12 +125,12 @@ public class PushbotTeleopTank_Iterative extends OpMode{
     }
 
 
-    boolean vacuumOn = false;
-    float vacuumDirection = 0.0f;
+    private boolean vacuumOn = false;
+   private float vacuumDirection = 0.0f;
     boolean elevatorOn = false;
     float elevatorDirection = 0.0f;
-    boolean emergencyCode = false;
-    int timer = 0;
+    private boolean emergencyCode = false;
+    private int timer = 0;
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
@@ -156,19 +168,15 @@ public class PushbotTeleopTank_Iterative extends OpMode{
 
             //vacuum
             //!vacuumOn is the same as vacuumOn ==false
-            if (gamepad1.right_bumper && !vacuumOn) {
-                vacuumOn = true;
-            }
-            if (gamepad1.right_bumper && vacuumOn) {
-                vacuumOn = false;
-            }
-            if (vacuumOn && !emergencyCode) {
-                vacuumDirection = 1.0f;
-            }
-            if (!vacuumOn && !emergencyCode) {
-                vacuumDirection = 0.0f;
-            }
+        if(gamepad1.a){
+            robot.elevator.setPower(-1.0f);
+            robot.vacuum.setPower(1.0f);
 
+        }
+        if(gamepad1.b){
+            robot.elevator.setPower(1.0f);
+           robot.vacuum.setPower(-  1.0f);
+        }
             // TODO: fix this:
             // robot.motorVacuum.setPower(vacuumDirection);
 
@@ -176,17 +184,17 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             telemetry.addData("Start loop", "4");
 
             if (gamepad2.left_bumper) {
-//            robot.motorShooter.setPower(1.0f);
-                timer++;
-                if (timer == 30) {
+          robot.shooter.setPower(1.0f);
+
                     telemetry.addData("say", "Timer is finished");
 //                robot.motorShooter.setPower(0.0f);
 
-                    timer = 0;
-
-                }
-
             }
+        if (gamepad2.right_bumper){
+            robot.shooter.setPower(0.0f);
+        }
+
+
 
             //elevator
 //
