@@ -68,12 +68,13 @@ package org.firstinspires.ftc.teamcode;
     private HardwarePushbot robot = new HardwarePushbot();
     private DcMotor motorRight;
     private DcMotor motorLeft;
-   private DcMotor motorShooter;
+    private DcMotor motorShooter;
+    private DcMotor particle_grabber;
 //    DcMotor motorElevator;
 //    DcMotor motorVacuum;
 
     ColorSensor colorSensor;
-    private DcMotor particle_grabber;
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -129,13 +130,6 @@ package org.firstinspires.ftc.teamcode;
         telemetry.addData("Say", "start fcn");
     }
 
-
-    private boolean vacuumOn = false;
-    private float vacuumDirection = 0.0f;
-    boolean elevatorOn = false;
-    float elevatorDirection = 0.0f;
-    private boolean emergencyCode = false;
-    private int timer = 0;
     private boolean halfPower = false;
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
@@ -149,8 +143,8 @@ package org.firstinspires.ftc.teamcode;
             float leftStick = -gamepad1.left_stick_y;
             float rightStick = -gamepad1.right_stick_y;
         telemetry.addData("Start loop", "1.1");
-
-       if (halfPower ==false) {
+//halfPower must be = to false
+       if (!halfPower) {
 
            if (leftStick > 1.0) {
                leftStick = 1;
@@ -165,7 +159,8 @@ package org.firstinspires.ftc.teamcode;
                rightStick = -1;
            }
        }
-        if (halfPower == true){
+        //halfPower = true
+        if (halfPower){
             if (leftStick > 0.5f){
                 leftStick = 0.5f;
             }
@@ -180,10 +175,10 @@ package org.firstinspires.ftc.teamcode;
             }
         }
 
-        if (gamepad1.right_bumper && halfPower ==false){
+        if (gamepad1.right_bumper && !halfPower){
             halfPower = true;
         }
-        if (gamepad1.right_bumper && halfPower ==true){
+        if (gamepad1.right_bumper && halfPower){
             halfPower = false;
         }
 
@@ -202,7 +197,6 @@ package org.firstinspires.ftc.teamcode;
         robot.leftMotor.setPower(leftStick);
         robot.rightMotor.setPower(rightStick);
 
-
             telemetry.addData("Start loop", "2");
             telemetry.addData("Start loop", "3");
 
@@ -213,6 +207,9 @@ package org.firstinspires.ftc.teamcode;
         }
         if(gamepad1.b){
            robot.particle_grabber.setPower(-1.0f);
+        }
+        if(gamepad1.x){
+            robot.particle_grabber.setPower(0.0f);
         }
             // TODO: fix this:
 
