@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -29,10 +30,10 @@ public class HardwarePushbot
     public DcMotor  armMotor    = null;
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
-    public DcMotor motorVacuum  = null;
-    public DcMotor motorElevator= null;
+   public DcMotor particle_grabber  = null;
+
     public DcMotor motorShooter = null;
-    public DcMotor leftMotor2 = null;
+//    public DcMotor leftMotor2 = null;
     public DcMotor rightMotor2 = null;
 
    /* public static final double MID_SERVO       =  0.5 ;
@@ -56,14 +57,23 @@ public class HardwarePushbot
         // Define and Initialize Motors
         leftMotor   = hwMap.dcMotor.get("left_drive");
         rightMotor  = hwMap.dcMotor.get("right_drive");
+        motorShooter  = hwMap.dcMotor.get("motorShooter");
+       particle_grabber  = hwMap.dcMotor.get("particle_grabber");
+
         // TODO restore this:
 //        armMotor    = hwMap.dcMotor.get("left_arm");
         leftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        motorShooter.setDirection(DcMotor.Direction.FORWARD);
+       particle_grabber.setDirection(DcMotor.Direction.REVERSE);
+
 
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        motorShooter.setPower(0);
+       particle_grabber.setPower(0);
+
         // TODO restore this:
 //        armMotor.setPower(0);
 
@@ -71,6 +81,9 @@ public class HardwarePushbot
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        particle_grabber.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         // TODO restore this:
 //        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 

@@ -68,13 +68,12 @@ package org.firstinspires.ftc.teamcode;
     private HardwarePushbot robot = new HardwarePushbot();
     private DcMotor motorRight;
     private DcMotor motorLeft;
-   // private DcMotor motorShooter;
+   private DcMotor motorShooter;
 //    DcMotor motorElevator;
 //    DcMotor motorVacuum;
-   // DcMotor motorRight2;
-   // private DcMotor motorLeft2;
+
     ColorSensor colorSensor;
-  //  public DcMotor particle_grabber;
+    public DcMotor particle_grabber;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -89,14 +88,14 @@ package org.firstinspires.ftc.teamcode;
             motorRight = hardwareMap.dcMotor.get("right_drive");
             motorLeft = hardwareMap.dcMotor.get("left_drive");
             //motorVacuum = hardwareMap.dcMotor.get("vacuum");
-           // motorShooter = hardwareMap.dcMotor.get("motorShooter");
+            motorShooter = hardwareMap.dcMotor.get("motorShooter");
             //motorElevator = hardwareMap.dcMotor.get("elevator");
             //motorRight2 = hardwareMap.dcMotor.get("right_drive2");
             //colorSensor = hardwareMap.colorSensor.get("colorSensor");
-         //   particle_grabber= hardwareMap.dcMotor.get ("motorElevator");
+         particle_grabber= hardwareMap.dcMotor.get ("motorElevator");
 
 
-           // motorLeft2 = hardwareMap.dcMotor.get("left_drive2");
+
             telemetry.addData("Say", "motors ready");
 
             motorRight.setDirection(DcMotor.Direction.REVERSE);
@@ -202,84 +201,36 @@ package org.firstinspires.ftc.teamcode;
         }
         robot.leftMotor.setPower(leftStick);
         robot.rightMotor.setPower(rightStick);
-      //  robot.rightMotor2.setPower(rightStick); // is null
+
 
             telemetry.addData("Start loop", "2");
             telemetry.addData("Start loop", "3");
 
-            //vacuum
-            //!vacuumOn is the same as vacuumOn ==false
+
         if(gamepad1.a){
-           // particle_grabber.setPower(1.0f);
+           particle_grabber.setPower(1.0f);
 
         }
         if(gamepad1.b){
-           // particle_grabber.setPower(-1.0f);
+           particle_grabber.setPower(-1.0f);
         }
             // TODO: fix this:
-            // robot.motorVacuum.setPower(vacuumDirection);
 
-            //shooter
             telemetry.addData("Start loop", "4");
 
             if (gamepad2.left_bumper) {
-          //     motorShooter.setPower(1.0f);
+          robot.motorShooter.setPower(1.0f);
 
                     telemetry.addData("say", "Timer is finished");
 
 
             }
         if (gamepad2.right_bumper){
-         //   motorShooter.setPower(0.0f);
+         robot.motorShooter.setPower(0.0f);
         }
 
 
 
-            //elevator
-//
-//        if(gamepad1.left_bumper && !elevatorOn)
-//        {
-//            elevatorOn=true;
-//        }
-//        if(gamepad1.left_bumper && elevatorOn)
-//        {
-//            elevatorOn = false;
-//        }
-//        if(elevatorOn)
-//        {
-//            elevatorDirection = 1.0f;
-//        }
-//        if(!elevatorOn)
-//        {
-//            elevatorDirection = 0.0f;
-//        }
-//        robot.motorElevator.setPower(elevatorDirection);
-
-            //reversing the elvator and vacuum if we grab the wrong ball
-
-/*
-        if(gamepad1.a && !emergencyCode)
-        {
-            emergencyCode = true;
-        }
-        if(gamepad1.a && emergencyCode)
-        {
-            emergencyCode =false;
-        }
-
-        if(emergencyCode)
-        {
-            elevatorDirection = -1.0f;
-            vacuumDirection = -1.0f;
-
-        }
-*/
-
-
-            // Use gamepad buttons to move the arm up (Y) and down (A)
-
-
-            // Send telemetry message to signify robot running;
 
             telemetry.addData("left", "%.2f", leftStick);
             telemetry.addData("right", "%.2f", rightStick);
