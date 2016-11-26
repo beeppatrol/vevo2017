@@ -65,17 +65,17 @@ public class little_turtle_Blue_1 extends OpMode{
         newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftAmount * COUNTS_PER_INCH);
         newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
-        robot.leftMotor2.setTargetPosition(newLeftTarget);
+       // robot.leftMotor2.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
         robot.rightMotor2.setTargetPosition(newRightTarget);
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.leftMotor.setPower(1.0f);
-        robot.leftMotor2.setPower(1.0f);
+       // robot.leftMotor2.setPower(1.0f);
         robot.rightMotor.setPower(1.0f);
         robot.rightMotor2.setPower (1.0f);
 
@@ -105,17 +105,17 @@ public class little_turtle_Blue_1 extends OpMode{
         newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * COUNTS_PER_INCH);
         newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
-        robot.leftMotor2.setTargetPosition(newLeftTarget);
+        //robot.leftMotor2.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
         robot.rightMotor2.setTargetPosition(newRightTarget);
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.leftMotor.setPower(-1.0f);
-        robot.leftMotor2.setPower(-1.0f);
+       // robot.leftMotor2.setPower(-1.0f);
         robot.rightMotor.setPower(-1.0f);
         robot.rightMotor2.setPower(-1.0f);
 
@@ -158,12 +158,12 @@ public class little_turtle_Blue_1 extends OpMode{
         //inform motor of there target
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
-        robot.leftMotor2.setTargetPosition(newLeftTarget);
+       // robot.leftMotor2.setTargetPosition(newLeftTarget);
         robot.rightMotor2.setTargetPosition(newRightTarget);
         //tell motors to go to the target
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+       // robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //give motors the means to go to the target
         rightMotor.setPower(1.0f);
@@ -205,12 +205,12 @@ public class little_turtle_Blue_1 extends OpMode{
         //inform motor of there target
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
-        robot.leftMotor2.setTargetPosition(newLeftTarget);
+       // robot.leftMotor2.setTargetPosition(newLeftTarget);
         robot.rightMotor2.setTargetPosition(newRightTarget);
         //tell motors to go to the target
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+      //  robot.leftMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //give motors the means to go to the target
 
@@ -402,3 +402,5 @@ public void loop(){
 //THIS IS CURRENTLY A SKELETON PROGRAM. VALUES NEED TO CHANGE!
 //THIS IS CURRENTLY A SKELETON PROGRAM. VALUES NEED TO CHANGE!
 //THIS IS CURRENTLY A SKELETON PROGRAM. VALUES NEED TO CHANGE!
+//TURTLES ARE ABSOLUTLY AWESOME BECAUSE THEY NUKE WHALES!
+//dooo dooo do do do doo dooo doooo do do do doo dooo doooo do do do do dododo do do do dododo
