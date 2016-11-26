@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
@@ -23,6 +24,7 @@ public class Big_Bear_Blue_1 extends OpMode{
     DcMotor leftMotorBack;
     public boolean finishedRunning = false;
 ColorSensor colorSensor;
+    Servo elevatorVacuum;
 
 
     @Override
@@ -246,7 +248,7 @@ ColorSensor colorSensor;
         leftMotorFront = hardwareMap.dcMotor.get("leftMotor1");
         leftMotorBack = hardwareMap.dcMotor.get("leftMotor2");
         colorSensor = hardwareMap.colorSensor.get("colorSensor");
-
+        elevatorVacuum = hardwareMap.servo.get ("vacuumandElevator");
 
 
         switch (v_state) {
