@@ -20,11 +20,10 @@ public class Big_Bear_Blue_1 extends OpMode{
     static double timer =0;
     DcMotor rightMotor;
    // DcMotor rightMotorBack;
-    DcMotor leftMotorFront;
-    DcMotor leftMotorBack;
+    DcMotor leftMotor;
+
     public boolean finishedRunning = false;
-ColorSensor colorSensor;
-    Servo elevatorVacuum;
+
 
 
     @Override
@@ -32,7 +31,7 @@ ColorSensor colorSensor;
 
     }
 
-    public void driveForwards( double rightAmount, double leftAmount)
+    public void driveForwards( double rightAmount, double leftAmount, double speed)
     {
         //probably not needed
        /* rightMotorFront.setPower(1.0f);
@@ -53,24 +52,23 @@ ColorSensor colorSensor;
         newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
-        robot.rightMotor2.setTargetPosition(newRightTarget);
+
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.leftMotor.setPower(1.0f);
-        robot.rightMotor.setPower(1.0f);
-        robot.rightMotor2.setPower (1.0f);
 
-        if(leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotor.isBusy()){
-            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftMotor.setPower(speed);
+        robot.rightMotor.setPower(speed);
+
+        if(leftMotor.isBusy()  && rightMotor.isBusy()){
+            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
             rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             finishedRunning = true;
             //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         }}
-    public void driveBackwards( double rightAmount, double leftAmount) {//THESE VALUES HAVE NOT BEEN CHANGED
+    public void driveBackwards( double rightAmount, double leftAmount, double speed) {//THESE VALUES HAVE NOT BEEN CHANGED
         //probably not needed
        /* rightMotorFront.setPower(1.0f);
         rightMotorBack.setPower(1.0f);
@@ -90,19 +88,19 @@ ColorSensor colorSensor;
         newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
-        robot.rightMotor2.setTargetPosition(newRightTarget);
+
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.leftMotor.setPower(-1.0f);
-        robot.rightMotor.setPower(-1.0f);
-        robot.rightMotor2.setPower(-1.0f);
 
-        if (leftMotorBack.isBusy() && leftMotorFront.isBusy() && rightMotor.isBusy()) {
-            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftMotor.setPower(speed * -1);
+        robot.rightMotor.setPower(speed * -1);
+
+
+        if (leftMotor.isBusy() && rightMotor.isBusy()) {
+            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
             rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             finishedRunning =true;
             //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -122,7 +120,7 @@ ColorSensor colorSensor;
 
 
 
-    public void turnLeft(double rightAmount, double leftAmount)
+    public void turnLeft(double rightAmount, double leftAmount, double speed)
     {
         final double Counts_Per_Motor_Rev  = 1440;
         final double Drive_Gear_Reduction = 2.0;
@@ -139,21 +137,21 @@ ColorSensor colorSensor;
         //inform motor of there target
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
-        robot.rightMotor2.setTargetPosition(newRightTarget);
+
         //tell motors to go to the target
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //give motors the means to go to the target
-        rightMotor.setPower(1.0f);
-        //rightMotorBack.setPower(1.0f);
-        leftMotorFront.setPower(-1.0f);
-        leftMotorBack.setPower(-1.0f);
 
-        if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotor.isBusy())
+        //give motors the means to go to the target
+        rightMotor.setPower(speed);
+        //rightMotorBack.setPower(1.0f);
+        leftMotor.setPower(speed *-1);
+
+
+        if(leftMotor.isBusy() && rightMotor.isBusy())
         {
-            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
             rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             finishedRunning = true;
             //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -167,7 +165,7 @@ ColorSensor colorSensor;
 
 
 
-    public void turnRight(double rightAmount, double leftAmount){
+    public void turnRight(double rightAmount, double leftAmount, double speed){
 
         final double Counts_Per_Motor_Rev  = 1440;
         final double Drive_Gear_Reduction = 2.0;
@@ -184,28 +182,24 @@ ColorSensor colorSensor;
         //inform motor of there target
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
-        robot.rightMotor2.setTargetPosition(newRightTarget);
-        //tell motors to go to the target
+
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.rightMotor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //give motors the means to go to the target
 
 
-        rightMotor.setPower(-1.0f);
+        rightMotor.setPower(speed *-1);
        // rightMotorBack.setPower(-1.0f);
-        leftMotorFront.setPower(1.0f);
-        leftMotorBack.setPower(1.0f);
+        leftMotor.setPower(speed);
 
-        if(leftMotorFront.isBusy() && leftMotorBack.isBusy() && rightMotor.isBusy())
+
+        if(leftMotor.isBusy() && rightMotor.isBusy())
         {
             //JUST IN CASE WE NEED IT oops all caps`
             /*robot.leftMotor.setPower(0.0f);
             robot.rightMotor.setPower(0.0f);
             robot.leftMotor2.setPower(0.0f);
             robot.rightMotor2.setPower(0.0f);*/
-            leftMotorFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            leftMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             finishedRunning = true;
            // rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -233,12 +227,12 @@ ColorSensor colorSensor;
     @Override
     public void loop() {
         int v_state = 0;
-        rightMotor = hardwareMap.dcMotor.get("rightMotor1");
-       // rightMotorBack = hardwareMap.dcMotor.get("rightMotor2");
-        leftMotorFront = hardwareMap.dcMotor.get("leftMotor1");
-        leftMotorBack = hardwareMap.dcMotor.get("leftMotor2");
-        colorSensor = hardwareMap.colorSensor.get("colorSensor");
-        elevatorVacuum = hardwareMap.servo.get ("vacuumandElevator");
+        rightMotor = hardwareMap.dcMotor.get("right_drive");
+
+        leftMotor = hardwareMap.dcMotor.get("left_drive");
+
+
+
 
 
         switch (v_state) {
@@ -248,7 +242,7 @@ ColorSensor colorSensor;
             //nothing
 
             case 1:
-                driveForwards(3, 3);
+                driveForwards(3, 3, 1);
                 if(finishedRunning ==true) {
 
                     v_state ++;
@@ -270,7 +264,7 @@ ColorSensor colorSensor;
 
 
             case 3:
-                turnRight(0.38 , 0.38);
+                turnRight(0.38 , 0.38, 1);
 
                 if(finishedRunning == true)
                 {
@@ -293,7 +287,7 @@ ColorSensor colorSensor;
                 break;
             //advancing to beacon and a little further
             case 6:
-                turnLeft(1,1);
+                turnLeft(1,1, 1);
                 timer++;
                 if (timer == 100){
 
@@ -302,7 +296,7 @@ ColorSensor colorSensor;
                 break;
             //turning into line TO DO: MAKE TURN BASED OFF COLOR SENSOR
             case 7:
-                driveForwards(1000, 1000);
+                driveForwards(1000, 1000, 1);
                 timer++;
                 if(timer ==10)
                 {
@@ -319,7 +313,7 @@ ColorSensor colorSensor;
                 v_state ++;
                 break;
             case 22:
-                driveBackwards(1,1);
+                driveBackwards(1,1,1);
                 timer++;
                 if(timer ==10)
                 {
@@ -332,7 +326,7 @@ ColorSensor colorSensor;
                 v_state ++;
                 break;
             case 24:
-                turnRight(48743,8);
+                turnRight(48743,8,1);
                 timer++;
                 if(timer ==80)
                 {
