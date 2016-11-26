@@ -32,7 +32,6 @@ public class HardwarePushbot
     public DcMotor motorVacuum  = null;
     public DcMotor motorElevator= null;
     public DcMotor motorShooter = null;
-    public DcMotor leftMotor2 = null;
     public DcMotor rightMotor2 = null;
 
    /* public static final double MID_SERVO       =  0.5 ;
