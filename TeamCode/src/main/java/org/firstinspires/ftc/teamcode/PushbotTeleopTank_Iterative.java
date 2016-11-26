@@ -73,7 +73,7 @@ package org.firstinspires.ftc.teamcode;
 //    DcMotor motorVacuum;
 
     ColorSensor colorSensor;
-    public DcMotor particle_grabber;
+    private DcMotor particle_grabber;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -92,7 +92,7 @@ package org.firstinspires.ftc.teamcode;
             //motorElevator = hardwareMap.dcMotor.get("elevator");
             //motorRight2 = hardwareMap.dcMotor.get("right_drive2");
             //colorSensor = hardwareMap.colorSensor.get("colorSensor");
-         particle_grabber= hardwareMap.dcMotor.get ("motorElevator");
+         particle_grabber= hardwareMap.dcMotor.get ("particle_grabber");
 
 
 
@@ -208,11 +208,11 @@ package org.firstinspires.ftc.teamcode;
 
 
         if(gamepad1.a){
-           particle_grabber.setPower(1.0f);
+           robot.particle_grabber.setPower(1.0f);
 
         }
         if(gamepad1.b){
-           particle_grabber.setPower(-1.0f);
+           robot.particle_grabber.setPower(-1.0f);
         }
             // TODO: fix this:
 
