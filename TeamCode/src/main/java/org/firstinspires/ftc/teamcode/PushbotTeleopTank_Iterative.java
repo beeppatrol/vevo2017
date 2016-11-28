@@ -118,7 +118,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         telemetry.addData("Say", "start fcn");
     }
 
-    private boolean halfPower = false;
+    private boolean halfPower = false;  // booleans are always false by default
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
@@ -127,12 +127,13 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         telemetry.addData("Say", "loop_DEL");
         telemetry.addData("Start loop", "1");
 
-            //wheels
-            float leftStick = -gamepad1.left_stick_y;
-            float rightStick = -gamepad1.right_stick_y;
+        //wheels
+        float leftStick = -gamepad1.left_stick_y;
+        float rightStick = -gamepad1.right_stick_y;
         telemetry.addData("Start loop", "1.1");
-//halfPower must be = to false
-       if (!halfPower) {
+
+        //halfPower must be = to false
+        if (!halfPower) {  // if not false means if true
 
            if (leftStick > 1.0) {
                leftStick = 1;
@@ -187,13 +188,14 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         telemetry.addData("Start loop", "2");
         telemetry.addData("Start loop", "3");
 
+        // need to change this so that if NOT a or b, then setpower to 0 (off)
         if(gamepad1.a){
            robot.particle_grabber.setPower(1.0f);
         }
         if(gamepad1.b){
             robot.particle_grabber.setPower(-1.0f);
         }
-        if(gamepad1.x){
+        if(gamepad1.x){  // we don't need a separate button to turn off (after above change).
             robot.particle_grabber.setPower(0.0f);
             telemetry.addData("Say", robot.motorShooter.getDeviceName());
         }
