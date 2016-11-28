@@ -30,10 +30,9 @@ public class HardwarePushbot
     public DcMotor  armMotor    = null;
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
-   public DcMotor particle_grabber  = null;
+    public DcMotor particle_grabber  = null;
 
     public DcMotor motorShooter = null;
-//    public DcMotor leftMotor2 = null;
     public DcMotor rightMotor2 = null;
 
    /* public static final double MID_SERVO       =  0.5 ;

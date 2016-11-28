@@ -21,8 +21,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Servo channel:  Servo to open left claw:  "left_hand"
  * Servo channel:  Servo to open right claw: "right_hand"
  */
-public class HardwarePushbot
-{
+public class HardwarePushbot {
+
+    /*
+    *  ** DO NOT USE THIS FILE (ask Sean for information)
+    *  ** see this file: org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot
+    *
+    *
+    * */
+
     /* Public OpMode members. */
     public DcMotor  leftMotor   = null;
     public DcMotor  rightMotor  = null;
@@ -33,6 +40,7 @@ public class HardwarePushbot
     public DcMotor motorElevator= null;
     public DcMotor motorShooter = null;
     public DcMotor rightMotor2 = null;
+    public DcMotor particleGrabber = null;
 
    /* public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
@@ -49,12 +57,15 @@ public class HardwarePushbot
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
+
         // Save reference to Hardware map
         hwMap = ahwMap;
 
         // Define and Initialize Motors
         leftMotor   = hwMap.dcMotor.get("left_drive");
         rightMotor  = hwMap.dcMotor.get("right_drive");
+        motorShooter = hwMap.dcMotor.get("motorShooter");
+        particleGrabber = hwMap.dcMotor.get("particle_grabber");
         // TODO restore this:
 //        armMotor    = hwMap.dcMotor.get("left_arm");
         leftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors

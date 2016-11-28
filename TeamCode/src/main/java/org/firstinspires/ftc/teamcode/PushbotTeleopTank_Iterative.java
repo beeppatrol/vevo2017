@@ -32,18 +32,12 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
-        //import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-        import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-        import com.qualcomm.robotcore.hardware.ColorSensor;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.CRServo;
-
-//import com.qualcomm.robotcore.hardware.DcMotorSimple;
-//import com.qualcomm.robotcore.robot.Robot;
-//import com.qualcomm.robotcore.util.Range;
-
-        import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
+import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file provides basic Telop driving for a Pushbot robot.
@@ -62,16 +56,11 @@ package org.firstinspires.ftc.teamcode;
 
 @TeleOp(name="Beep", group="TeleOp")
 // @Disabled
-  class PushbotTeleopTank_Iterative extends OpMode{
+public class PushbotTeleopTank_Iterative extends OpMode{
+
 
     /* Declare OpMode members. */
     private HardwarePushbot robot = new HardwarePushbot();
-    private DcMotor motorRight;
-    private DcMotor motorLeft;
-    private DcMotor motorShooter;
-    private DcMotor particle_grabber;
-//    DcMotor motorElevator;
-//    DcMotor motorVacuum;
 
     ColorSensor colorSensor;
 
@@ -86,26 +75,25 @@ package org.firstinspires.ftc.teamcode;
          */
         telemetry.addData("Say", "init start");
         try {
-            motorRight = hardwareMap.dcMotor.get("right_drive");
-            motorLeft = hardwareMap.dcMotor.get("left_drive");
+            robot.rightMotor = hardwareMap.dcMotor.get("right_drive");
+            robot.leftMotor = hardwareMap.dcMotor.get("left_drive");
             //motorVacuum = hardwareMap.dcMotor.get("vacuum");
-            motorShooter = hardwareMap.dcMotor.get("motorShooter");
+            robot.motorShooter = hardwareMap.dcMotor.get("motorShooter");
             //motorElevator = hardwareMap.dcMotor.get("elevator");
             //motorRight2 = hardwareMap.dcMotor.get("right_drive2");
             //colorSensor = hardwareMap.colorSensor.get("colorSensor");
-         particle_grabber= hardwareMap.dcMotor.get ("particle_grabber");
-
-
+            robot.particle_grabber= hardwareMap.dcMotor.get ("particle_grabber");
 
             telemetry.addData("Say", "motors ready");
 
-            motorRight.setDirection(DcMotor.Direction.REVERSE);
+            robot.rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
             robot.init(hardwareMap);
 
             telemetry.addData("Say", "robot ready");    //
         } catch (Exception e) {
             telemetry.addData("init loop exception: ", e.getMessage());
+            throw e;
         } finally {
             telemetry.addData("Say", "init end");
 
@@ -184,7 +172,6 @@ package org.firstinspires.ftc.teamcode;
 
         telemetry.addData("Start loop", "1.2");
 
-
         if (null==robot) {
             telemetry.addData("robot is null", "");
         }
@@ -197,40 +184,34 @@ package org.firstinspires.ftc.teamcode;
         robot.leftMotor.setPower(leftStick);
         robot.rightMotor.setPower(rightStick);
 
-            telemetry.addData("Start loop", "2");
-            telemetry.addData("Start loop", "3");
-
+        telemetry.addData("Start loop", "2");
+        telemetry.addData("Start loop", "3");
 
         if(gamepad1.a){
            robot.particle_grabber.setPower(1.0f);
-
         }
         if(gamepad1.b){
-           robot.particle_grabber.setPower(-1.0f);
+            robot.particle_grabber.setPower(-1.0f);
         }
         if(gamepad1.x){
             robot.particle_grabber.setPower(0.0f);
+            telemetry.addData("Say", robot.motorShooter.getDeviceName());
         }
             // TODO: fix this:
 
-            telemetry.addData("Start loop", "4");
+        telemetry.addData("Start loop", "4");
 
-            if (gamepad2.left_bumper) {
-          robot.motorShooter.setPower(1.0f);
-
-                    telemetry.addData("say", "Timer is finished");
-
-
-            }
-        if (gamepad2.right_bumper){
-         robot.motorShooter.setPower(0.0f);
+        if (gamepad2.left_bumper) {
+            robot.motorShooter.setPower(1.0f);
+            telemetry.addData("say", "Timer is finished");
         }
 
+        if (gamepad2.right_bumper){
+            robot.motorShooter.setPower(0.0f);
+        }
 
-
-
-            telemetry.addData("left", "%.2f", leftStick);
-            telemetry.addData("right", "%.2f", rightStick);
+        telemetry.addData("left", "%.2f", leftStick);
+        telemetry.addData("right", "%.2f", rightStick);
 
 
     }

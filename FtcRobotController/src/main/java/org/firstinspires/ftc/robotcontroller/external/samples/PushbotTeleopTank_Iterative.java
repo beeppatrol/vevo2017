@@ -59,6 +59,13 @@ import com.qualcomm.robotcore.util.Range;
 @Disabled
 public class PushbotTeleopTank_Iterative extends OpMode{
 
+    /*
+    *  ** DO NOT USE THIS FILE (ask Sean for information)
+    *
+    *  see this file: org.firstinspires.ftc.teamcode.PushbotTeleopTank_Iterative
+    *
+    * */
+
     /* Declare OpMode members. */
     HardwarePushbot robot       = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
                                                          // could also use HardwarePushbotMatrix class.
