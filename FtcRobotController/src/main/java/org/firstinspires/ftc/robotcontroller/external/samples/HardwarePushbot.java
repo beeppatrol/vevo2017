@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 /**
  * This is NOT an opmode.
@@ -31,9 +34,11 @@ public class HardwarePushbot
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
     public DcMotor particle_grabber  = null;
-
+    public CRServo linearSlide = null;
+    public ColorSensor colorSensor;
     public DcMotor motorShooter = null;
     public DcMotor rightMotor2 = null;
+    public OpticalDistanceSensor lightSensor;
 
    /* public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
@@ -58,6 +63,9 @@ public class HardwarePushbot
         rightMotor  = hwMap.dcMotor.get("right_drive");
         motorShooter  = hwMap.dcMotor.get("motorShooter");
        particle_grabber  = hwMap.dcMotor.get("particle_grabber");
+        linearSlide    = hwMap.crservo.get("linearSlide");
+        colorSensor = hwMap.colorSensor.get("colorSensor");
+        lightSensor = hwMap.opticalDistanceSensor.get("oDS");
 
         // TODO restore this:
 //        armMotor    = hwMap.dcMotor.get("left_arm");
@@ -65,6 +73,8 @@ public class HardwarePushbot
         rightMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         motorShooter.setDirection(DcMotor.Direction.FORWARD);
        particle_grabber.setDirection(DcMotor.Direction.REVERSE);
+        linearSlide.setDirection(CRServo.Direction.REVERSE);
+
 
 
         // Set all motors to zero power
@@ -72,6 +82,7 @@ public class HardwarePushbot
         rightMotor.setPower(0);
         motorShooter.setPower(0);
        particle_grabber.setPower(0);
+        linearSlide.setPower(0);
 
         // TODO restore this:
 //        armMotor.setPower(0);

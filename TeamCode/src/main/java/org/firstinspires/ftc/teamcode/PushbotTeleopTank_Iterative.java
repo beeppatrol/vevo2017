@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
+
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
@@ -83,6 +84,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             //motorRight2 = hardwareMap.dcMotor.get("right_drive2");
             //colorSensor = hardwareMap.colorSensor.get("colorSensor");
             robot.particle_grabber= hardwareMap.dcMotor.get ("particle_grabber");
+            robot.linearSlide = hardwareMap.crservo.get("linearSlide");
 
             telemetry.addData("Say", "motors ready");
 
@@ -118,7 +120,9 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         telemetry.addData("Say", "start fcn");
     }
 
-    private boolean halfPower = false;  // booleans are always false by default
+    private boolean halfPower = false;
+    private boolean sliding = false;
+    private boolean reverse = false;// booleans are always false by default
     /*
      * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
      */
@@ -128,8 +132,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         telemetry.addData("Start loop", "1");
 
         //wheels
-        float leftStick = -gamepad1.left_stick_y;
-        float rightStick = -gamepad1.right_stick_y;
+        float leftStick = gamepad1.left_stick_y;
+        float rightStick = gamepad1.right_stick_y;
         telemetry.addData("Start loop", "1.1");
 
         //halfPower must be = to false
@@ -188,30 +192,45 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         telemetry.addData("Start loop", "2");
         telemetry.addData("Start loop", "3");
 
+        float grabberPower = gamepad2.right_trigger;
+
+        if(reverse ==false) {
+            robot.particle_grabber.setPower(grabberPower * -1);
+        }
+        if(reverse ==true){
+            robot.particle_grabber.setPower(grabberPower);
+        }
         // need to change this so that if NOT a or b, then setpower to 0 (off)
-        if(gamepad1.a){
-           robot.particle_grabber.setPower(1.0f);
+
+        if(gamepad2.a && reverse == true){
+           reverse = false;
         }
-        if(gamepad1.b){
-            robot.particle_grabber.setPower(-1.0f);
-        }
-        if(gamepad1.x){  // we don't need a separate button to turn off (after above change).
-            robot.particle_grabber.setPower(0.0f);
+        if(gamepad2.a && reverse ==false){  // we don't need a separate button to turn off (after above change).
+           reverse = true;
             telemetry.addData("Say", robot.motorShooter.getDeviceName());
         }
             // TODO: fix this:
 
         telemetry.addData("Start loop", "4");
+         float shooterPower = gamepad2.left_trigger;
 
-        if (gamepad2.left_bumper) {
-            robot.motorShooter.setPower(1.0f);
-            telemetry.addData("say", "Timer is finished");
+robot.motorShooter.setPower(shooterPower);
+
+        if (gamepad2.y){
+            robot.linearSlide.setPower(1.0);
+            telemetry.addData("y registered", sliding);
+            sliding = true;
         }
-
-        if (gamepad2.right_bumper){
-            robot.motorShooter.setPower(0.0f);
+        if (gamepad2.right_stick_button){
+            telemetry.addData("y registered", sliding);
+            robot.linearSlide.setPower(0.0);
+            sliding = false;
         }
-
+        if(gamepad2.left_stick_button){
+            robot.linearSlide.setPower(-1.0);
+            sliding = true;
+        }
+        telemetry.addData("linearSlide's power: ", robot.linearSlide.getPower());
         telemetry.addData("left", "%.2f", leftStick);
         telemetry.addData("right", "%.2f", rightStick);
 

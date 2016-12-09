@@ -18,17 +18,31 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class Big_Bear_Blue_1 extends OpMode{
     HardwarePushbot robot   = new HardwarePushbot();
     static double timer =0;
-    DcMotor rightMotor;
    // DcMotor rightMotorBack;
-    DcMotor leftMotor;
+//   DcMotor rightMotor;
+//    DcMotor leftMotor;
 
     public boolean finishedRunning = false;
 
+    public int numCalls = 0;
 
+
+    private int v_state;
 
     @Override
     public void init() {
 
+        robot.rightMotor = hardwareMap.dcMotor.get("right_drive");
+
+        robot.leftMotor = hardwareMap.dcMotor.get("left_drive");
+
+        robot.colorSensor = hardwareMap.colorSensor.get("colorSensor");
+
+        robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
+
+        robot.linearSlide = hardwareMap.crservo.get("linearSlide");
+
+        v_state = 0;
     }
 
     public void driveForwards( double rightAmount, double leftAmount, double speed)
@@ -38,6 +52,10 @@ public class Big_Bear_Blue_1 extends OpMode{
         rightMotorBack.setPower(1.0f);
         leftMotorFront.setPower(1.0f);
         leftMotorBack.setPower(1.0f); */
+        numCalls++;
+        telemetry.addData("say", "Drive forwards VROOOM!");
+
+
         final double     COUNTS_PER_MOTOR_REV    = 1440 ;
         final double     DRIVE_GEAR_REDUCTION    = 2.0 ;
         final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
@@ -48,26 +66,27 @@ public class Big_Bear_Blue_1 extends OpMode{
 
         int newLeftTarget;
         int newRightTarget;
-        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftAmount * COUNTS_PER_INCH);
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftAmount *-1 * COUNTS_PER_INCH);
         newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
-
+        telemetry.addData("say:", newLeftTarget);
+        telemetry.addData("say:", newRightTarget);
 
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
-        leftMotor.setPower(speed);
+        robot.leftMotor.setPower(speed);
         robot.rightMotor.setPower(speed);
 
-        if(leftMotor.isBusy()  && rightMotor.isBusy()){
-            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            finishedRunning = true;
+      /*  if (!robot.rightMotor.isBusy()){
+
+            robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            finishedRunning = true; }*/
             //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        }}
+        }
     public void driveBackwards( double rightAmount, double leftAmount, double speed) {//THESE VALUES HAVE NOT BEEN CHANGED
         //probably not needed
        /* rightMotorFront.setPower(1.0f);
@@ -85,7 +104,7 @@ public class Big_Bear_Blue_1 extends OpMode{
         int newLeftTarget;
         int newRightTarget;
         newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * COUNTS_PER_INCH);
-        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
+        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount*-1 * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
 
@@ -98,13 +117,7 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor.setPower(speed * -1);
 
 
-        if (leftMotor.isBusy() && rightMotor.isBusy()) {
-            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            finishedRunning =true;
-            //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        }
 
        /* rightMotorBack.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotorFront.RunMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -143,22 +156,12 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //give motors the means to go to the target
-        rightMotor.setPower(speed);
+        robot.rightMotor.setPower(speed);
         //rightMotorBack.setPower(1.0f);
-        leftMotor.setPower(speed *-1);
-
-
-        if(leftMotor.isBusy() && rightMotor.isBusy())
-        {
-            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            finishedRunning = true;
-            //rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftMotor.setPower(speed *-1);
 
 
 
-        }
     }
 
 
@@ -177,8 +180,8 @@ public class Big_Bear_Blue_1 extends OpMode{
         int newLeftTarget;
         int newRightTarget;
         //get target
-        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftAmount * Counts_Per_Inch);
-        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * Counts_Per_Inch);
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int)(leftAmount *-1 * Counts_Per_Inch);
+        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount *-1 * Counts_Per_Inch);
         //inform motor of there target
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
@@ -187,26 +190,12 @@ public class Big_Bear_Blue_1 extends OpMode{
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-        rightMotor.setPower(speed *-1);
+        robot.rightMotor.setPower(speed *-1);
        // rightMotorBack.setPower(-1.0f);
-        leftMotor.setPower(speed);
-
-
-        if(leftMotor.isBusy() && rightMotor.isBusy())
-        {
-            //JUST IN CASE WE NEED IT oops all caps`
-            /*robot.leftMotor.setPower(0.0f);
-            robot.rightMotor.setPower(0.0f);
-            robot.leftMotor2.setPower(0.0f);
-            robot.rightMotor2.setPower(0.0f);*/
-            leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            finishedRunning = true;
-           // rightMotorBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftMotor.setPower(speed);
 
 
 
-        }
 
 
 
@@ -222,48 +211,180 @@ public class Big_Bear_Blue_1 extends OpMode{
     }
 
 
-
-
+    private boolean controlVar = true;
+     private double whiteLine;
+    private int red;
     @Override
     public void loop() {
-        int v_state = 0;
-        rightMotor = hardwareMap.dcMotor.get("right_drive");
 
-        leftMotor = hardwareMap.dcMotor.get("left_drive");
+        if(controlVar) {
+            telemetry.addData("say", "loop is running");
+          controlVar = false;
+        }
 
+        //robot.rightMotor = hardwareMap.dcMotor.get("right_drive");
 
+        //robot.leftMotor = hardwareMap.dcMotor.get("left_drive");
 
-
-
+        int testRed;
+        int testGreen;
+        int testBlue;
+        //boolean taskComplete;
+        boolean onlyOnce = false;
+        boolean taskComplete = true;
         switch (v_state) {
             case 0:
-                v_state  ++;
-                break;
+               // boolean taskComplete;
+                telemetry.addData("say", "case 0 loop");
+                robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+                robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                if(!onlyOnce) {
+                    v_state=1;
+                    onlyOnce = true;
+                }
+                finishedRunning = false;
+                taskComplete = false;
+                numCalls=0;
             //nothing
 
             case 1:
-                driveForwards(3, 3, 1);
-                if(finishedRunning ==true) {
 
-                    v_state ++;
-                    break;
 
+                driveForwards(3.2,3.2,1);
+                v_state = 2;
+               /* telemetry.addData("case 1 loop", numCalls);
+            //test = robot.colorSensor.red();
+                robot.colorSensor.enableLed(true);
+               // telemetry.addData("red: ", test );
+                double test = robot.lightSensor.getLightDetected();
+                telemetry.addData("lightDetected = : ", test);
+                //
+                robot.rightMotor.setPower(0.2);
+                robot.leftMotor.setPower(-0.2);
+
+                double whiteLine = robot.lightSensor.getLightDetected();
+                telemetry.addData("whiteLine: ", whiteLine);
+                if( whiteLine >= 0.5) {
+                    robot.rightMotor.setPower(0.0);
+                    robot.leftMotor.setPower(0.0);
+                    taskComplete = true;
+                    v_state=2;} */
+            case 2:
+
+                if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()){
+                    robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    v_state = 3;
                 }
 
+            case 3:
+
+                turnLeft(0.1, 0.1, 0.3);
+                v_state = 4;
+
+           /* case 4:
+
+                if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()){
+                    robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    v_state = 5;
+                }
+            case 5:
+
+                robot.rightMotor.setPower(0.2);
+                robot.leftMotor.setPower(-0.2);
+
+                double whiteLine = robot.lightSensor.getLightDetected();
+                telemetry.addData("whiteLine: ", whiteLine);
+                if( whiteLine >= 0.5) {
+                    robot.rightMotor.setPower(0.0);
+                    robot.leftMotor.setPower(0.0);
+
+                    v_state=6;}
+            case 6:
+                driveBackwards(0.1,0.1,.5);
+                v_state = 7;
+
+            case 7:
+                robot.linearSlide.setPower(1.0);
+
+
+
+                //v_state++;
+
+
+         /*   case 2:
+                double whiteLine = robot.lightSensor.getLightDetected();
+                telemetry.addData("whiteLine: ", whiteLine);
+                if( whiteLine >= 0.8) {
+                    robot.rightMotor.setPower(0.0);
+                    robot.leftMotor.setPower(0.0);
+                    telemetry.addData("reached if statement", "turtles");
+                    taskComplete = true;
+
+                    */
+                //}
+                /*PV
+                if(finishedRunning ==true) {
+
+
+                    v_state ++;
+
+                }
+                */
 
                 // start program by going forwards
 
-            case 2:
+           /* case 2:
+
+                if(!taskComplete) {
+                   v_state = 1;
+                }
+                if(taskComplete) {
+
+                  telemetry.addData("case 2 loop", numCalls);
+                  telemetry.addData("left tgt", robot.leftMotor.getTargetPosition());
+                  telemetry.addData("right tgt", robot.rightMotor.getTargetPosition());
+                  telemetry.addData("left pos", robot.leftMotor.getCurrentPosition());
+                  telemetry.addData("right pos", robot.rightMotor.getCurrentPosition());
+                  numCalls++;
+
+                  driveBackwards(.01, .01, .5);
+                 if(taskComplete) {
+
+
+                     v_state++;
+                 }
+              }
+            case 3:
+
+                    if (!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()) {
+                        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        v_state++;
+                        telemetry.addData("state 3", "stop/rset");
+                        v_state++;
+                        //taskComplete =true;
+                    }
+*/
+
+                /*PV
+                telemetry.addData("say", "case 2 loop");
+
                 finishedRunning =false;
                 if(finishedRunning ==false){
                     v_state ++;
-                    break;
                 }
-
+                */
             // reset timers
 
 
-            case 3:
+
+
+            /*case 3:
                 turnRight(0.38 , 0.38, 1);
 
                 if(finishedRunning == true)
@@ -337,14 +458,29 @@ public class Big_Bear_Blue_1 extends OpMode{
             case 26:
                 //colour sensor required
 
-
-
-
+*/
+          /*  default:
+                testRed = robot.colorSensor.red();
+                telemetry.addData("red", testRed);
+                robot.colorSensor.enableLed(true);
+                testGreen = robot.colorSensor.green();
+                telemetry.addData("green:", testGreen);
+                testBlue = robot.colorSensor.blue();
+                telemetry.addData("blue:", testBlue);
+                telemetry.addData("Invalid Case", v_state);
+               // robot.lightSensor.enableLed(true);
+                v_state =1; */
 
         }
 
 
-
+    telemetry.addData("V_STATE", v_state);
 
     }
 }
+
+//1: 61
+//2: 67
+//3: 67
+//4: 61
+//5: 67
