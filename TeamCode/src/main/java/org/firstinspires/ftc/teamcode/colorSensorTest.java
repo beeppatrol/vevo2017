@@ -27,7 +27,6 @@ public class colorSensorTest extends OpMode {
     HardwarePushbot robot = new HardwarePushbot();
 
     private ColorSensor colorSensor;
-
     //colorSensor = hardwareMap.colorSensor.get("colorSensor")
 @Override
     public void loop() {
