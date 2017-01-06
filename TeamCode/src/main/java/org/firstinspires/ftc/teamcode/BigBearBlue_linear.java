@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @Autonomous(name = "BigBearBlue", group = "LinearOpMode")
-@Disabled
+
 public class BigBearBlue_linear extends LinearOpMode {
 boolean targetColor = true;
     HardwarePushbot robot = new HardwarePushbot();
@@ -36,8 +36,8 @@ boolean targetColor = true;
 
         int newLeftTarget;
         int newRightTarget;
-        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * -1 * COUNTS_PER_INCH);
-        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount *-1 * COUNTS_PER_INCH);
+        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount *-1 * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
         telemetry.addData("say:", newLeftTarget);
@@ -62,7 +62,7 @@ boolean targetColor = true;
         int newLeftTarget;
         int newRightTarget;
         newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * COUNTS_PER_INCH);
-        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * -1 * COUNTS_PER_INCH);
+        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
 
@@ -89,7 +89,7 @@ boolean targetColor = true;
         int newLeftTarget;
         int newRightTarget;
 
-        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * Counts_Per_Inch);
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * -1 * Counts_Per_Inch);
         newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * Counts_Per_Inch);
 
         robot.leftMotor.setTargetPosition(newLeftTarget);
@@ -103,7 +103,7 @@ boolean targetColor = true;
 
         robot.rightMotor.setPower((double) speed);
 
-        robot.leftMotor.setPower((double) speed * -1);
+        robot.leftMotor.setPower((double) speed);
 
     }
 
@@ -118,7 +118,7 @@ boolean targetColor = true;
         int newLeftTarget;
         int newRightTarget;
 
-        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * -1 * Counts_Per_Inch);
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * 1 * Counts_Per_Inch);
         newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * -1 * Counts_Per_Inch);
 
         robot.leftMotor.setTargetPosition(newLeftTarget);
@@ -227,32 +227,21 @@ boolean targetColor = true;
         waitForStart();
 
         driveForwards(2,2,2);
-        sleep(500);
+        sleep(1500);
 
-        stopMoving();
-        sleep(1000);
 
-        turnLeft(0.4,0.4, 0.4);
-        sleep(500);
-
-        stopMoving();
-        sleep(500);
-
+        turnLeft(0.3,0.3, 0.5);
+        sleep(600);
+//needs to go further I just don't want to hit the Vasudav's thing to hold the TV
         driveForwards(3.0, 3.0, 0.5);
-        sleep(500);
-
-        stopMoving();
-        sleep(500);
+        sleep(1500);
 
         driveBackwards(0.3, 0.3, 0.8);
         sleep(500);
 
-        stopMoving();
-        sleep(500);
-
         turnRight(0.4, 0.4, 0.4);
         sleep(500);
-
+/*
         driveUntilLineReverse();
         sleep(500);
 
@@ -290,7 +279,7 @@ boolean targetColor = true;
         robot.motorShooter.setPower(0.0);
         robot.particle_grabber.setPower(-1);
         sleep(500);
-
+*/
 
 
 
