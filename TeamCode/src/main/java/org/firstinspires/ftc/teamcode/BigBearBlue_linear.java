@@ -18,6 +18,8 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 public class BigBearBlue_linear extends LinearOpMode {
 boolean targetColor = true;
+
+
     HardwarePushbot robot = new HardwarePushbot();
 
 
@@ -160,10 +162,11 @@ boolean targetColor = true;
     }
     public void driveUntilLineReverse(){
         double whiteValue = robot.lightSensor.getLightDetected();
+        double whiteValue2 = robot.lightSensor2.getLightDetected();
         telemetry.addData("ODS reads: ", whiteValue);
         while (opModeIsActive() && whiteValue < 0.8) {
-            robot.rightMotor.setPower(-1.0);
-            robot.leftMotor.setPower(-1.0);
+            robot.rightMotor.setPower(-.30);
+            robot.leftMotor.setPower(-.30);
         }
 
         robot.leftMotor.setPower(0.0);
@@ -172,6 +175,100 @@ boolean targetColor = true;
 
 
     }
+public void squareOnLineReverse(){
+    double whiteLine = robot.lightSensor.getLightDetected();
+    double whiteLine2 = robot.lightSensor2.getLightDetected();
+
+    while(whiteLine < 0.8 && whiteLine2 < 0.8 ){
+        telemetry.addData("WhiteLine=: ", whiteLine);
+        telemetry.addData("WhiteLine2=: ", whiteLine2);
+        if(whiteLine < 0.8 && whiteLine2 < 0.8) {
+            robot.rightMotor.setPower(-1.0);
+            robot.leftMotor.setPower(-1.0);
+        }
+        if(whiteLine < 0.8 && whiteLine2 >= 0.8){
+            robot.rightMotor.setPower(-1.0);
+        }
+        if(whiteLine >= 0.8 && whiteLine2 < 0.8){
+            robot.leftMotor.setPower(-1.0);
+        }
+        robot.rightMotor.setPower(0.0);
+        robot.leftMotor.setPower(0.0);
+    }
+
+
+
+
+
+
+
+}
+    public void squareOnLine(){
+        double white = 0;
+        double white2 = 0;
+
+
+        while( white < 0.8 && white2 <0.8){
+             white = robot.lightSensor.getLightDetected();
+             white2 = robot.lightSensor2.getLightDetected();
+            robot.leftMotor.setPower(0.30);
+            robot.rightMotor.setPower(0.30);
+        }
+
+
+          /*  while(white2 <0.8){
+                 white = robot.lightSensor.getLightDetected();
+                 white2 = robot.lightSensor2.getLightDetected();
+                robot.rightMotor.setPower(0.30);
+            }
+*/
+
+        robot.leftMotor.setPower(0.0);
+        robot.rightMotor.setPower(0.0);
+
+
+
+
+        }
+public void squareOnLine2(){
+    double white = 0;
+    double white2 = 0;
+    boolean stillGoing = true;
+    boolean right = true;
+    boolean left = true;
+                    telemetry.addData("checkpoint1","!");
+    while(stillGoing){
+                           telemetry.addData("checkpoint2","!");
+       if(right){ robot.rightMotor.setPower(-0.30);}
+       if(left){ robot.leftMotor.setPower(-0.30);}
+        white = robot.lightSensor.getLightDetected();
+        white2 = robot.lightSensor2.getLightDetected();
+        if(white >.8){
+            robot.leftMotor.setPower(0.0);
+            left = false;
+             telemetry.addData("checkpoint3","!");
+        }
+        if( white2 > .8){
+                       telemetry.addData("checkpoint4","!");
+            robot.rightMotor.setPower(0.0);
+            right = false;
+        }
+        sleep(100);
+        if(!left && !right){
+            stillGoing = false;
+             telemetry.addData("checkpoint5","!");
+        }
+
+
+
+    }
+
+
+
+}
+
+
+
 
     public void getBeaconColor() {
         double red = robot.colorSensor.red();
@@ -226,27 +323,42 @@ boolean targetColor = true;
 
         waitForStart();
 
-        driveForwards(2,2,2);
+
+
+
+    /*   driveForwards(2,2,2);
         sleep(1500);
 
 
         turnLeft(0.3,0.3, 0.5);
         sleep(600);
-//needs to go further I just don't want to hit the Vasudav's thing to hold the TV
-        driveForwards(3.0, 3.0, 0.5);
-        sleep(1500);
+
+        driveForwards(10.0, 10.0, 0.3);
+        sleep(3500);
+
+        driveForwards(3.0, 3.0, 0.1);
+        sleep(1000);
 
         driveBackwards(0.3, 0.3, 0.8);
         sleep(500);
 
-        turnRight(0.4, 0.4, 0.4);
+        turnRight(0.35, 0.35, 0.35);
         sleep(500);
-/*
-        driveUntilLineReverse();
-        sleep(500);
+        telemetry.addData("got here", "!");
+        updateTelemetry(telemetry);
+        */
+        squareOnLine2();
+        sleep(2000);
 
-        stopMoving();
-        sleep(500);
+        telemetry.addData("here too","!");
+        updateTelemetry(telemetry);
+        sleep(10000);
+
+
+
+
+/*
+
 
         getBeaconColor();
         sleep(500);
