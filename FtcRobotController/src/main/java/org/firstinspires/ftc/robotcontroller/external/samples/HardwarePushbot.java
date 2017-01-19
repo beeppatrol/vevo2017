@@ -41,6 +41,8 @@ public class HardwarePushbot
     public OpticalDistanceSensor lightSensor;
     public OpticalDistanceSensor lightSensor2;
 
+
+
    /* public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
@@ -68,6 +70,8 @@ public class HardwarePushbot
         colorSensor = hwMap.colorSensor.get("colorSensor");
         lightSensor = hwMap.opticalDistanceSensor.get("oDS");
         lightSensor2 = hwMap.opticalDistanceSensor.get("oDS2");
+
+
 
         // TODO restore this:
 //        armMotor    = hwMap.dcMotor.get("left_arm");

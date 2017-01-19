@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * This is NOT an opmode.
@@ -43,6 +44,7 @@ public class HardwarePushbot {
     public DcMotor rightMotor2 = null;
     public DcMotor particleGrabber = null;
     public CRServo linearSlide = null;
+
 
    /* public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;

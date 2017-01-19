@@ -2,11 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import android.graphics.Color;
+
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
@@ -14,9 +13,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Created by vasudevfamily on 10/27/16.
  */
 
-@Autonomous(name = "BigBearBlue", group = "LinearOpMode")
+@Autonomous(name = "ReadSensors", group = "LinearOpMode")
 
-public class BigBearBlue_linear extends LinearOpMode {
+public class ReadSensors extends LinearOpMode {
 boolean targetColor = true;
 
 
@@ -345,14 +344,12 @@ public void squareOnLine2(){
     @Override
     public void runOpMode() throws InterruptedException {
         int i = 0;
+        float hsvValues[] = {0F,0F,0F};
         robot.init(hardwareMap);
 
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         idle();
-
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("ready to go", "all is ready");
 
@@ -368,103 +365,23 @@ public void squareOnLine2(){
         waitForStart();
 
 
+        while(true) {
+            telemetry.addData("color sensor blue =", robot.colorSensor.blue());
+            telemetry.addData("color sensor red =", robot.colorSensor.red());
+            telemetry.addData("light sensor 1 =", robot.lightSensor.getLightDetected());
+            telemetry.addData("light sensor 2 =", robot.lightSensor2.getLightDetected());
 
+            // convert the RGB values to HSV values.
+            Color.RGBToHSV(robot.colorSensor.red() * 8, robot.colorSensor.green() * 8, robot.colorSensor.blue() * 8, hsvValues);
 
-       driveForwards(2,2,2);
-
-
-        turnLeft(0.3,0.3, 0.5);
-        sleep(600);
-
-        driveForwards(10.0, 10.0, 0.3);
-        sleep(3500);
-
-        driveForwards(3.0, 3.0, 0.1);
-        sleep(1000);
-
-        driveBackwards(0.3, 0.3, 0.8);
-        sleep(500);
-
-        turnRight(0.35, 0.35, 0.35);
-        sleep(500);
-        telemetry.addData("got here", "!");
-        updateTelemetry(telemetry);
-
-        squareOnLine2();
-        sleep(2000);
-
-        turnLeft(0.35, 0.35, 0.35);
-
-
-        telemetry.addData("here too","!");
-        telemetry.addData("color sensor blue =",robot.colorSensor.blue());
-        telemetry.addData("color sensor red =",robot.colorSensor.red());
-        updateTelemetry(telemetry);
-        sleep(10000);
-
-        if(robot.colorSensor.red() > 80) {
-            driveForwards(3.0, 3.0, 0.1);
-            sleep(1000);
+            // send the info back to driver station using telemetry function.
+            telemetry.addData("Clear", robot.colorSensor.alpha());
+            telemetry.addData("Red  ", robot.colorSensor.red());
+            telemetry.addData("Green", robot.colorSensor.green());
+            telemetry.addData("Blue ", robot.colorSensor.blue());
+            telemetry.addData("Hue", hsvValues[0]);
+            updateTelemetry(telemetry);
         }
-        else {
-            //turn to the left 15 deg.
-            //drive backwards one rotation
-            //turn 15 deg. to right
-            //drive forward 1.2 rotations
-        }
-
-        //drive backwards .5 rotation
-        //turn 90 deg. to the left
-        //drive forward 1 rotation
-        //line squaring
-
-
-
-
-
-
-
-/*
-
-
-        getBeaconColor();
-        sleep(500);
-
-        linearSlide();
-        sleep(1000);
-
-        linearSlideReverse();
-        driveUntilLine();
-        sleep(500);
-
-        stopMoving();
-        sleep(500);
-
-        getBeaconColor();
-        sleep(500);
-
-        linearSlide();
-        sleep(500);
-
-        turnLeft(0.6, 0.6, 0.4);
-        sleep(500);
-
-        driveForwards(1.0, 1.0, 1.0);
-        sleep(500);
-
-        robot.motorShooter.setPower(1.0);
-        sleep(1000);
-
-        robot.motorShooter.setPower(0.0);
-        robot.particle_grabber.setPower(-1);
-        sleep(500);
-*/
-
-
-
-
-
-
 
 
 
