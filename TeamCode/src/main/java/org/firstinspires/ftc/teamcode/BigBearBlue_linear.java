@@ -236,27 +236,55 @@ public void squareOnLine2(){
     boolean stillGoing = true;
     boolean right = true;
     boolean left = true;
-                    telemetry.addData("checkpoint1","!");
-    while(stillGoing){
-                           telemetry.addData("checkpoint2","!");
-       if(right){ robot.rightMotor.setPower(-0.30);}
-       if(left){ robot.leftMotor.setPower(-0.30);}
+
+    telemetry.addData("checkpoint1",stillGoing);
+    updateTelemetry(telemetry);
+    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    while(left || right) {
+        telemetry.addData("checkpoint2","!");
+        updateTelemetry(telemetry);
+
+
+        telemetry.addData("right: ", right);
+        telemetry.addData("left: ", left);
+        telemetry.addData("white: ", white);
+        telemetry.addData("white2: ", white2);
+        updateTelemetry(telemetry);
+
+
+
+       if(right){
+           robot.rightMotor.setPower(-0.10);
+           telemetry.addData("Moving R","");
+           updateTelemetry(telemetry);
+       }
+       if(left){
+           robot.leftMotor.setPower(-0.10);
+           telemetry.addData("Moving L","");
+           updateTelemetry(telemetry);
+       }
         white = robot.lightSensor.getLightDetected();
         white2 = robot.lightSensor2.getLightDetected();
-        if(white >.8){
+        if(white >.1){
             robot.leftMotor.setPower(0.0);
+            robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             left = false;
              telemetry.addData("checkpoint3","!");
+            updateTelemetry(telemetry); 
         }
-        if( white2 > .8){
-                       telemetry.addData("checkpoint4","!");
+        if( white2 > .1){
+            telemetry.addData("checkpoint4","!");
+            updateTelemetry(telemetry);
             robot.rightMotor.setPower(0.0);
+            robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             right = false;
         }
         sleep(100);
         if(!left && !right){
             stillGoing = false;
              telemetry.addData("checkpoint5","!");
+            updateTelemetry(telemetry);
         }
 
 
@@ -309,7 +337,7 @@ public void squareOnLine2(){
     }
     @Override
     public void runOpMode() throws InterruptedException {
-
+        int i = 0;
         robot.init(hardwareMap);
 
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -321,12 +349,21 @@ public void squareOnLine2(){
 
         telemetry.addData("ready to go", "all is ready");
 
+        /*while(i<1000000) {
+            telemetry.addData("light1=", robot.lightSensor.getLightDetected());
+            telemetry.addData("light2=", robot.lightSensor.getLightDetected());
+            updateTelemetry(telemetry);
+            i++;
+        }*/
+
+
+
         waitForStart();
 
 
 
 
-    /*   driveForwards(2,2,2);
+       driveForwards(2,2,2);
         sleep(1500);
 
 
@@ -346,7 +383,7 @@ public void squareOnLine2(){
         sleep(500);
         telemetry.addData("got here", "!");
         updateTelemetry(telemetry);
-        */
+
         squareOnLine2();
         sleep(2000);
 

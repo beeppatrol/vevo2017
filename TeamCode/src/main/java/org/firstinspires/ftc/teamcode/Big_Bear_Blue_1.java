@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @Autonomous(name = "Big_Bear_Blue_1", group = "Autonomous_OpMode")
+@Disabled
 public class Big_Bear_Blue_1 extends OpMode{
     HardwarePushbot robot   = new HardwarePushbot();
     static double timer =0;
@@ -37,7 +39,8 @@ public class Big_Bear_Blue_1 extends OpMode{
 
         robot.colorSensor = hardwareMap.colorSensor.get("colorSensor");
 
-        robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
+       /* robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
+        robot.lightSensor2 = hardwareMap.opticalDistanceSensor.get("oDS2");*/
 
         robot.linearSlide = hardwareMap.crservo.get("linearSlide");
         robot.motorShooter = hardwareMap.dcMotor.get("motorShooter");
@@ -215,6 +218,17 @@ public class Big_Bear_Blue_1 extends OpMode{
           controlVar = false;
         }
 
+
+
+        whiteLine = robot.lightSensor.getLightDetected();
+        double whiteLine2 = robot.lightSensor2.getLightDetected();
+
+        telemetry.addData("white: ", whiteLine);
+        telemetry.addData("white2: ", whiteLine2);
+updateTelemetry(telemetry);
+
+
+
         //robot.rightMotor = hardwareMap.dcMotor.get("right_drive");
 
         //robot.leftMotor = hardwareMap.dcMotor.get("left_drive");
@@ -226,7 +240,7 @@ public class Big_Bear_Blue_1 extends OpMode{
 
         boolean taskComplete = true;
 
-        switch (v_state) {
+      /*  switch (v_state) {
             case 0:
                 if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -246,7 +260,7 @@ public class Big_Bear_Blue_1 extends OpMode{
             /*    if(yellowLight < 1000000){
                     yellowLight++;
                 }*/
-                v_state = 3;
+              /*  v_state = 3;
                 break;
 
             case 3:
@@ -775,10 +789,10 @@ if(onlyOnce) {
         }
 
 
-    telemetry.addData("V_STATE", v_state);
+  //  telemetry.addData("V_STATE", v_state);
 
     }
-}
+//}
 
 //1: 61
 //2: 67

@@ -85,6 +85,8 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             //colorSensor = hardwareMap.colorSensor.get("colorSensor");
             robot.particle_grabber= hardwareMap.dcMotor.get ("particle_grabber");
             robot.linearSlide = hardwareMap.crservo.get("linearSlide");
+            robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
+            robot.lightSensor2 = hardwareMap.opticalDistanceSensor.get("oDS2");
 
             telemetry.addData("Say", "motors ready");
 
