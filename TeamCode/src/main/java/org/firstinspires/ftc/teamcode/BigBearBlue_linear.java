@@ -82,8 +82,14 @@ boolean targetColor = true;
 
         robot.leftMotor.setPower(speed * -1);
         robot.rightMotor.setPower(speed * -1);
+        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()){
 
+        }
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
 
 
     public void turnLeft(double rightAmount, double leftAmount, double speed) {
@@ -113,8 +119,14 @@ boolean targetColor = true;
         robot.rightMotor.setPower((double) speed);
 
         robot.leftMotor.setPower((double) speed);
+        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()){
 
+        }
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
 
     public void turnRight(double rightAmount, double leftAmount, double speed) {
 
@@ -140,7 +152,12 @@ boolean targetColor = true;
         robot.rightMotor.setPower((double) speed * -1);
 
         robot.leftMotor.setPower((double) speed);
+        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()){
 
+        }
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void stopMoving(){
@@ -163,11 +180,13 @@ boolean targetColor = true;
 
         robot.leftMotor.setPower(0.0);
         robot.rightMotor.setPower(0.0);
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
     }
-    public void driveUntilLineReverse(){
+   /* public void driveUntilLineReverse(){
         double whiteValue = robot.lightSensor.getLightDetected();
         double whiteValue2 = robot.lightSensor2.getLightDetected();
         telemetry.addData("ODS reads: ", whiteValue);
@@ -181,8 +200,8 @@ boolean targetColor = true;
 
 
 
-    }
-public void squareOnLineReverse(){
+    }*/
+/*public void squareOnLineReverse(){
     double whiteLine = robot.lightSensor.getLightDetected();
     double whiteLine2 = robot.lightSensor2.getLightDetected();
 
@@ -209,7 +228,7 @@ public void squareOnLineReverse(){
 
 
 
-}
+}*/
     public void squareOnLine(){
         double white = 0;
         double white2 = 0;
@@ -232,6 +251,8 @@ public void squareOnLineReverse(){
 
         robot.leftMotor.setPower(0.0);
         robot.rightMotor.setPower(0.0);
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -302,6 +323,70 @@ public void squareOnLine2(){
 
 }
 
+    public void squareOnLine2Reverse(){
+        double white = 0;
+        double white2 = 0;
+        boolean stillGoing = true;
+        boolean right = true;
+        boolean left = true;
+
+        telemetry.addData("checkpoint1",stillGoing);
+        updateTelemetry(telemetry);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while(left || right) {
+            telemetry.addData("checkpoint2","!");
+            updateTelemetry(telemetry);
+
+
+            telemetry.addData("right: ", right);
+            telemetry.addData("left: ", left);
+            telemetry.addData("white: ", white);
+            telemetry.addData("white2: ", white2);
+            updateTelemetry(telemetry);
+
+
+
+            if(right){
+                robot.rightMotor.setPower(0.10);
+                telemetry.addData("Moving R","");
+                updateTelemetry(telemetry);
+            }
+            if(left){
+                robot.leftMotor.setPower(0.10);
+                telemetry.addData("Moving L","");
+                updateTelemetry(telemetry);
+            }
+            white = robot.lightSensor.getLightDetected();
+            white2 = robot.lightSensor2.getLightDetected();
+            if(white >.8){
+                robot.leftMotor.setPower(0.0);
+                robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                left = false;
+                telemetry.addData("checkpoint3","!");
+                updateTelemetry(telemetry);
+            }
+            if( white2 > .8){
+                telemetry.addData("checkpoint4","!");
+                updateTelemetry(telemetry);
+                robot.rightMotor.setPower(0.0);
+                robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                right = false;
+            }
+
+            if(!left && !right){
+                stillGoing = false;
+                telemetry.addData("checkpoint5","!");
+                updateTelemetry(telemetry);
+            }
+
+
+
+        }
+
+
+
+    }
 
 
 
@@ -370,43 +455,46 @@ public void squareOnLine2(){
 
 
 
-       driveForwards(2,2,2);
+       driveForwards(1.5,1.5,1);
 
 
-        turnLeft(0.3,0.3, 0.5);
-        sleep(600);
+        turnLeft(0.25,0.25, 0.25);
+        //sleep(600);
 
-        driveForwards(10.0, 10.0, 0.3);
-        sleep(3500);
+        driveForwards(4.0, 4.0, 0.3);
 
-        driveForwards(3.0, 3.0, 0.1);
-        sleep(1000);
+        driveForwards(1.0, 1.0, 0.1);
 
-        driveBackwards(0.3, 0.3, 0.8);
-        sleep(500);
+        driveBackwards(0.2, 0.2, 0.8);
+       // sleep(500);
 
-        turnRight(0.35, 0.35, 0.35);
-        sleep(500);
+        turnRight(0.4, 0.4, 0.35);
+       // sleep(500);
         telemetry.addData("got here", "!");
         updateTelemetry(telemetry);
 
-        squareOnLine2();
-        sleep(2000);
+       // squareOnLine2Reverse();
 
-        turnLeft(0.35, 0.35, 0.35);
+        driveBackwards(0.7, 0.7, 0.5);
+        sleep(1000);
+        //sleep(2000);
+
+     //   turnLeft(0.35, 0.35, 0.35);
 
 
-        telemetry.addData("here too","!");
+       /* telemetry.addData("here too","!");
         telemetry.addData("color sensor blue =",robot.colorSensor.blue());
         telemetry.addData("color sensor red =",robot.colorSensor.red());
         updateTelemetry(telemetry);
-        sleep(10000);
+        sleep(1000);*/
 
-        if(robot.colorSensor.red() > 80) {
-            driveForwards(3.0, 3.0, 0.1);
-            sleep(1000);
+     //   driveBackwards(1,1,1);
+
+        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
+            turnLeft(.7,.7,.3);
         }
         else {
+            driveForwards(.3,.3,.7);
             //turn to the left 15 deg.
             //drive backwards one rotation
             //turn 15 deg. to right

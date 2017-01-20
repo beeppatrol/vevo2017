@@ -364,6 +364,7 @@ public void squareOnLine2(){
 
         waitForStart();
 
+        robot.colorSensor.enableLed(false);
 
         while(true) {
             telemetry.addData("color sensor blue =", robot.colorSensor.blue());
