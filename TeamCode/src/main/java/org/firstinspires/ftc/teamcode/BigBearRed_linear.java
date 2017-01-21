@@ -2,13 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.I2cAddr;
-import com.qualcomm.robotcore.hardware.I2cAddrConfig;
-import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
@@ -16,9 +12,9 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Created by vasudevfamily on 10/27/16.
  */
 
-@Autonomous(name = "BigBearBlue", group = "LinearOpMode")
+@Autonomous(name = "BigBearRed", group = "LinearOpMode")
 
-public class BigBearBlue_linear extends LinearOpMode {
+public class BigBearRed_linear extends LinearOpMode {
 boolean targetColor = true;
 
 
@@ -500,17 +496,17 @@ robot.colorSensor.enableLed(false);
         driveBackwards(0.3, 0.3, 0.8);
        // sleep(500);
 
-        turnRight(0.4, 0.4, 0.35);
+        turnLeft(0.4, 0.4, 0.35);
        // sleep(500);
         telemetry.addData("got here", "!");
         updateTelemetry(telemetry);
 
        // squareOnLine2Reverse();
 
-       squareOnLine2Reverse();
+       squareOnLine2();
         sleep(1000);
 
-        driveBackwards(.2,.2,.4);
+        driveForwards(.2,.2,.4);
 
        //real program ^^^^
 
@@ -535,19 +531,19 @@ robot.colorSensor.enableLed(false);
             //driveBackwards(.1,.1,.3);
         }
         else {
-            driveBackwards(.3,.3,.7);
+            driveForwards(.3,.3,.7);
             //turn to the left 15 deg.
             //drive backwards one rotation
             //turn 15 deg. to right
             //drive forward 1.2 rotations
         }
 
-        turnLeft(.47,.47,.3);
+        turnRight(.47,.47,.3);
         driveForwards(1,1,.3);
 
         sleep(100);
 
-        driveBackwards(3,3,.9);
+        driveForwards(3,3,.9);
 
 
 
