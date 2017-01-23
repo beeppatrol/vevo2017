@@ -490,15 +490,15 @@ robot.colorSensor.enableLed(false);
         robot.particle_grabber.setPower(0.0); */
         sleep(100);
 
-        turnLeft(0.25,0.25, 0.25);
-        //sleep(600);
+        turnLeft(0.25, 0.25, 0.25);
 
-        driveForwards(4.0, 4.0, 0.3);
 
-        driveForwards(.40, .40, 0.1);
+        driveForwards(5.0, 5.0, 0.3);
 
-        driveBackwards(0.3, 0.3, 0.8);
-       // sleep(500);
+        driveForwards(.70, .70, 0.1);
+
+        driveBackwards(0.2, 0.2, 0.8);
+
 
         turnRight(0.4, 0.4, 0.35);
        // sleep(500);
@@ -542,12 +542,13 @@ robot.colorSensor.enableLed(false);
             //drive forward 1.2 rotations
         }
 
-        turnLeft(.47,.47,.3);
+        turnLeft(.43,.43,.3);
         driveForwards(1,1,.3);
 
         sleep(100);
 
-        driveBackwards(3,3,.9);
+        driveBackwards(4,4,.9);
+        turnLeft(1,1,1);
 
 
 

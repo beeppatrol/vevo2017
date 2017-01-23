@@ -228,13 +228,20 @@ public class little_turtle_Blue_1 extends OpMode{
 
         switch (v_state) {
             case 0:
+//this.resetStartTime();
+                if(this.getRuntime() > 15){
+                    v_state = 1;
+
+                    break;
+                }
                 if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 }
-                v_state = 1;
+
                 break;
             case 1:
+                this.resetStartTime();
                 if(robot.leftMotor.getCurrentPosition() > 0 || robot.rightMotor.getCurrentPosition() >0){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -454,7 +461,7 @@ public class little_turtle_Blue_1 extends OpMode{
 
                /* telemetry.addData("case 1 loop", numCalls);
             //test = robot.colorSensor.red();
-                robot.colorSensor.enableLed(true);
+
                // telemetry.addData("red: ", test );
                 double test = robot.lightSensor.getLightDetected();
                 telemetry.addData("lightDetected = : ", test);

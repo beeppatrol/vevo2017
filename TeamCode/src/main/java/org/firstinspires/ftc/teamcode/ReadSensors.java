@@ -367,10 +367,14 @@ public void squareOnLine2(){
         robot.colorSensor.enableLed(false);
 
         while(true) {
+            robot.colorSensor.enableLed(false);
             telemetry.addData("color sensor blue =", robot.colorSensor.blue());
             telemetry.addData("color sensor red =", robot.colorSensor.red());
             telemetry.addData("light sensor 1 =", robot.lightSensor.getLightDetected());
             telemetry.addData("light sensor 2 =", robot.lightSensor2.getLightDetected());
+            telemetry.addData("Hi", "");
+            telemetry.addData("hello","");
+            telemetry.addData("greetings", "");
 
             // convert the RGB values to HSV values.
             Color.RGBToHSV(robot.colorSensor.red() * 8, robot.colorSensor.green() * 8, robot.colorSensor.blue() * 8, hsvValues);

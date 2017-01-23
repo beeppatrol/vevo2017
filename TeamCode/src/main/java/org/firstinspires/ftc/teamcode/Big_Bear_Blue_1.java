@@ -37,7 +37,7 @@ public class Big_Bear_Blue_1 extends OpMode{
 
         robot.leftMotor = hardwareMap.dcMotor.get("left_drive");
 
-        robot.colorSensor = hardwareMap.colorSensor.get("colorSensor");
+       robot.colorSensor = hardwareMap.colorSensor.get("colorSensor");
 
        /* robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
         robot.lightSensor2 = hardwareMap.opticalDistanceSensor.get("oDS2");*/
@@ -442,7 +442,7 @@ updateTelemetry(telemetry);
 
                /* telemetry.addData("case 1 loop", numCalls);
             //test = robot.colorSensor.red();
-                robot.colorSensor.enableLed(true);
+
                // telemetry.addData("red: ", test );
                 double test = robot.lightSensor.getLightDetected();
                 telemetry.addData("lightDetected = : ", test);

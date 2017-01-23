@@ -80,9 +80,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             robot.leftMotor = hardwareMap.dcMotor.get("left_drive");
             //motorVacuum = hardwareMap.dcMotor.get("vacuum");
             robot.motorShooter = hardwareMap.dcMotor.get("motorShooter");
-            //motorElevator = hardwareMap.dcMotor.get("elevator");
-            //motorRight2 = hardwareMap.dcMotor.get("right_drive2");
-            //colorSensor = hardwareMap.colorSensor.get("colorSensor");
+
             robot.particle_grabber= hardwareMap.dcMotor.get ("particle_grabber");
             robot.linearSlide = hardwareMap.crservo.get("linearSlide");
             robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");

@@ -310,7 +310,7 @@ public void squareOnLine2(){
             robot.leftMotor.setPower(0.0);
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
+            right = false;
             left = false;
              telemetry.addData("checkpoint3","!");
             updateTelemetry(telemetry);
@@ -323,6 +323,7 @@ public void squareOnLine2(){
 
             robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             right = false;
+            left = false;
         }
         sleep(100);
         if(!left && !right){
@@ -477,26 +478,21 @@ robot.colorSensor.enableLed(false);
 
 
       driveForwards(1.5,1.5,1);
-        /*robot.motorShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.motorShooter.setPower(1.0);*/
-       /* robot.particle_grabber.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.particle_grabber.setPower(1.0);
-        sleep(4000);
-        robot.motorShooter.setPower(0.0);
-        robot.particle_grabber.setPower(0.0); */
+        telemetry.addData("made it here","1");
+        updateTelemetry(telemetry);
         sleep(100);
 
-        turnLeft(0.25,0.25, 0.25);
+        turnRight(0.20,0.20, 0.25);
         //sleep(600);
 
-        driveForwards(4.0, 4.0, 0.3);
+        driveForwards(5.0, 5.0, 0.3);
 
-        driveForwards(.40, .40, 0.1);
+        driveForwards(.70, .70, 0.1);
 
         driveBackwards(0.3, 0.3, 0.8);
        // sleep(500);
 
-        turnLeft(0.4, 0.4, 0.35);
+        turnRight(0.35, 0.35, 0.35);
        // sleep(500);
         telemetry.addData("got here", "!");
         updateTelemetry(telemetry);
@@ -506,24 +502,11 @@ robot.colorSensor.enableLed(false);
        squareOnLine2();
         sleep(1000);
 
-        driveForwards(.2,.2,.4);
-
-       //real program ^^^^
-
-        //sleep(2000);
-
-     //   turnLeft(0.35, 0.35, 0.35);
+        driveBackwards(.2,.2,.4);
 
 
-       /* telemetry.addData("here too","!");
-        telemetry.addData("color sensor blue =",robot.colorSensor.blue());
-        telemetry.addData("color sensor red =",robot.colorSensor.red());
-        updateTelemetry(telemetry);
-        sleep(1000);*/
 
-     //   driveBackwards(1,1,1);
-
-        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
+      if(robot.colorSensor.red() > robot.colorSensor.blue()) {
             telemetry.addData("red", robot.colorSensor.red());
             telemetry.addData("blue", robot.colorSensor.blue());
 
@@ -531,19 +514,17 @@ robot.colorSensor.enableLed(false);
             //driveBackwards(.1,.1,.3);
         }
         else {
-            driveForwards(.3,.3,.7);
-            //turn to the left 15 deg.
-            //drive backwards one rotation
-            //turn 15 deg. to right
-            //drive forward 1.2 rotations
+            driveBackwards(.3,.3,.7);
+
         }
 
-        turnRight(.47,.47,.3);
+        turnLeft(.46,.46,.3);
         driveForwards(1,1,.3);
 
         sleep(100);
 
-        driveForwards(3,3,.9);
+        driveBackwards(4,4,.9);
+        turnLeft(1,1,1);
 
 
 
