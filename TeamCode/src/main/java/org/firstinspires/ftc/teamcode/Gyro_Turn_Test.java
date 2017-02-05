@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 /**
@@ -460,9 +461,83 @@ public void turnRightGyro (float degrees){
 
 
 }
+    public enum direction_t {
+        RIGHT, LEFT
+    }
+
+    public void turnGyro (float targetHeading) {
+        int original_anglez = 0;
+        ModernRoboticsI2cGyro gyro;
+        int xVal, yVal, zVal = 0;
+        int heading = 0;
+        int angleZ = 0;
+        float MIDPOWER = 0;
+        double DRIVEGAIN = 0.01;
+        int timer = 0;
+        double currentHeading, headingError, driveSteering, leftPower, rightPower = 0.0;
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        calibrateGyro();
+        currentHeading = gyro.getHeading();
+        telemetry.addData("Current Pos", currentHeading);
+        updateTelemetry(telemetry);
+
+        while (currentHeading < targetHeading) {
+            currentHeading = gyro.getHeading();
+            headingError = targetHeading - currentHeading;
+            driveSteering = headingError * DRIVEGAIN;
+            leftPower = MIDPOWER + driveSteering;
+
+            if (leftPower > 1) {
+                leftPower = 1;
+            }
+            if (leftPower < -1) {
+                leftPower = -1;
+            }
+            while(currentHeading > targetHeading){
+                telemetry.addData("current pos >", "target pos");
+                telemetry.addData("cur pos", currentHeading);
+                telemetry.addData("tar pos", targetHeading);
+                updateTelemetry(telemetry);
+                robot.rightMotor.setPower(0.0);
+                robot.leftMotor.setPower(0.0);
+                calibrateGyro();
+
+                sleep(10000);
+                break;
+            }
+
+            rightPower = MIDPOWER - driveSteering;
+            if (rightPower > 1) {
+                rightPower = 1;
+            }
+            if (rightPower < -1) {
+                rightPower = -1;
+            }
+
+            robot.leftMotor.setPower(leftPower);
+            robot.rightMotor.setPower(rightPower);
 
 
-    
+            telemetry.addData("curHeading", currentHeading);
+            telemetry.addData("tarHeading", targetHeading);
+            telemetry.addData("leftPwr", leftPower);
+            telemetry.addData("rightPwr", rightPower);
+            telemetry.addData("headingErr", headingError);
+            telemetry.addData("driveSteer", driveSteering);
+            updateTelemetry(telemetry);
+
+        }
+        robot.rightMotor.setPower(0.0);
+        robot.leftMotor.setPower(0.0);
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        sleep(10000);
+
+
+    }
+
 
 
 
@@ -535,8 +610,8 @@ public void turnRightGyro (float degrees){
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         idle();
 
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("ready to go", "all is ready");
 
@@ -559,7 +634,8 @@ public void turnRightGyro (float degrees){
         }*/
         waitForStart();
         calibrateGyro();
-        turnRightGyro(90);
+        sleep(1000);
+        turnGyro(90);
 
 
 
