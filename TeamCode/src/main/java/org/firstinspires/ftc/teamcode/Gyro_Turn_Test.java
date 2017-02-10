@@ -16,14 +16,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by vasudevfamily on 10/27/16.
  */
 
+
 @Autonomous(name = "GyroTurnTest", group = "LinearOpMode")
 
-public class Gyro_Turn_Test extends LinearOpMode {
-boolean targetColor = true;
+public abstract class Gyro_Turn_Test extends LinearOpMode {
+    boolean targetColor = true;
 
 
     HardwarePushbot robot = new HardwarePushbot();
-
+//void runOpMode();
 
     public void driveForwards(double rightAmount, double leftAmount, double speed) {
 
@@ -40,8 +41,8 @@ boolean targetColor = true;
 
         int newLeftTarget;
         int newRightTarget;
-        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount *-1 * COUNTS_PER_INCH);
-        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount *-1 * COUNTS_PER_INCH);
+        newLeftTarget = robot.leftMotor.getCurrentPosition() + (int) (leftAmount * -1 * COUNTS_PER_INCH);
+        newRightTarget = robot.rightMotor.getCurrentPosition() + (int) (rightAmount * -1 * COUNTS_PER_INCH);
         robot.leftMotor.setTargetPosition(newLeftTarget);
         robot.rightMotor.setTargetPosition(newRightTarget);
         telemetry.addData("say:", newLeftTarget);
@@ -53,7 +54,7 @@ boolean targetColor = true;
         robot.leftMotor.setPower(speed);
         robot.rightMotor.setPower(speed);
 
-        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()){
+        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()) {
 
         }
 
@@ -87,7 +88,7 @@ boolean targetColor = true;
 
         robot.leftMotor.setPower(speed * -1);
         robot.rightMotor.setPower(speed * -1);
-        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()){
+        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()) {
 
         }
 
@@ -96,7 +97,6 @@ boolean targetColor = true;
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-
 
 
     public void turnLeft(double rightAmount, double leftAmount, double speed) {
@@ -126,7 +126,7 @@ boolean targetColor = true;
         robot.rightMotor.setPower((double) speed);
 
         robot.leftMotor.setPower((double) speed);
-        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()){
+        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()) {
 
         }
 
@@ -161,7 +161,7 @@ boolean targetColor = true;
         robot.rightMotor.setPower((double) speed * -1);
 
         robot.leftMotor.setPower((double) speed);
-        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()){
+        while (robot.rightMotor.isBusy() || robot.leftMotor.isBusy()) {
 
         }
 
@@ -171,7 +171,7 @@ boolean targetColor = true;
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    public void stopMoving(){
+    public void stopMoving() {
 
         robot.rightMotor.setPower(0.0);
         robot.leftMotor.setPower(0.0);
@@ -183,7 +183,7 @@ boolean targetColor = true;
 
     }
 
-    public void driveUntilLine(){
+    public void driveUntilLine() {
         double whiteValue = robot.lightSensor.getLightDetected();
         telemetry.addData("ODS reads: ", whiteValue);
         while (opModeIsActive() && whiteValue < 0.8) {
@@ -200,21 +200,22 @@ boolean targetColor = true;
 
 
     }
-   /* public void driveUntilLineReverse(){
-        double whiteValue = robot.lightSensor.getLightDetected();
-        double whiteValue2 = robot.lightSensor2.getLightDetected();
-        telemetry.addData("ODS reads: ", whiteValue);
-        while (opModeIsActive() && whiteValue < 0.8) {
-            robot.rightMotor.setPower(-.30);
-            robot.leftMotor.setPower(-.30);
-        }
 
-        robot.leftMotor.setPower(0.0);
-        robot.rightMotor.setPower(0.0);
+    /* public void driveUntilLineReverse(){
+         double whiteValue = robot.lightSensor.getLightDetected();
+         double whiteValue2 = robot.lightSensor2.getLightDetected();
+         telemetry.addData("ODS reads: ", whiteValue);
+         while (opModeIsActive() && whiteValue < 0.8) {
+             robot.rightMotor.setPower(-.30);
+             robot.leftMotor.setPower(-.30);
+         }
+
+         robot.leftMotor.setPower(0.0);
+         robot.rightMotor.setPower(0.0);
 
 
 
-    }*/
+     }*/
 /*public void squareOnLineReverse(){
     double whiteLine = robot.lightSensor.getLightDetected();
     double whiteLine2 = robot.lightSensor2.getLightDetected();
@@ -243,14 +244,14 @@ boolean targetColor = true;
 
 
 }*/
-    public void squareOnLine(){
+    public void squareOnLine() {
         double white = 0;
         double white2 = 0;
 
 
-        while( white < 0.8 && white2 <0.8){
-             white = robot.lightSensor.getLightDetected();
-             white2 = robot.lightSensor2.getLightDetected();
+        while (white < 0.8 && white2 < 0.8) {
+            white = robot.lightSensor.getLightDetected();
+            white2 = robot.lightSensor2.getLightDetected();
             robot.leftMotor.setPower(0.30);
             robot.rightMotor.setPower(0.30);
         }
@@ -271,91 +272,21 @@ boolean targetColor = true;
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
-
-
-        }
-public void squareOnLine2(){
-    double white = 0;
-    double white2 = 0;
-    boolean stillGoing = true;
-    boolean right = true;
-    boolean left = true;
-
-    telemetry.addData("checkpoint1",stillGoing);
-    updateTelemetry(telemetry);
-    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    while(left || right) {
-        telemetry.addData("checkpoint2","!");
-        updateTelemetry(telemetry);
-
-
-        telemetry.addData("right: ", right);
-        telemetry.addData("left: ", left);
-        telemetry.addData("white: ", white);
-        telemetry.addData("white2: ", white2);
-        updateTelemetry(telemetry);
-
-
-
-       if(right){
-           robot.rightMotor.setPower(-0.10);
-           telemetry.addData("Moving R","");
-           updateTelemetry(telemetry);
-       }
-       if(left){
-           robot.leftMotor.setPower(-0.10);
-           telemetry.addData("Moving L","");
-           updateTelemetry(telemetry);
-       }
-        white = robot.lightSensor.getLightDetected();
-        white2 = robot.lightSensor2.getLightDetected();
-        if(white >.8){
-            robot.leftMotor.setPower(0.0);
-            robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-            left = false;
-             telemetry.addData("checkpoint3","!");
-            updateTelemetry(telemetry);
-        }
-        if( white2 > .8){
-            telemetry.addData("checkpoint4","!");
-            updateTelemetry(telemetry);
-            robot.rightMotor.setPower(0.0);
-            robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-            robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            right = false;
-        }
-        sleep(100);
-        if(!left && !right){
-            stillGoing = false;
-             telemetry.addData("checkpoint5","!");
-            updateTelemetry(telemetry);
-        }
-
-
-
     }
 
-
-
-}
-
-    public void squareOnLine2Reverse(){
+    public void squareOnLine2() {
         double white = 0;
         double white2 = 0;
         boolean stillGoing = true;
         boolean right = true;
         boolean left = true;
 
-        telemetry.addData("checkpoint1",stillGoing);
+        telemetry.addData("checkpoint1", stillGoing);
         updateTelemetry(telemetry);
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        while(left || right) {
-            telemetry.addData("checkpoint2","!");
+        while (left || right) {
+            telemetry.addData("checkpoint2", "!");
             updateTelemetry(telemetry);
 
 
@@ -366,30 +297,95 @@ public void squareOnLine2(){
             updateTelemetry(telemetry);
 
 
-
-            if(right){
-                robot.rightMotor.setPower(0.10);
-                telemetry.addData("Moving R","");
+            if (right) {
+                robot.rightMotor.setPower(-0.10);
+                telemetry.addData("Moving R", "");
                 updateTelemetry(telemetry);
             }
-            if(left){
-                robot.leftMotor.setPower(0.10);
-                telemetry.addData("Moving L","");
+            if (left) {
+                robot.leftMotor.setPower(-0.10);
+                telemetry.addData("Moving L", "");
                 updateTelemetry(telemetry);
             }
             white = robot.lightSensor.getLightDetected();
             white2 = robot.lightSensor2.getLightDetected();
-            if(white >.8){
+            if (white > .8) {
                 robot.leftMotor.setPower(0.0);
                 robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
                 left = false;
-                telemetry.addData("checkpoint3","!");
+                telemetry.addData("checkpoint3", "!");
                 updateTelemetry(telemetry);
             }
-            if( white2 > .8){
-                telemetry.addData("checkpoint4","!");
+            if (white2 > .8) {
+                telemetry.addData("checkpoint4", "!");
+                updateTelemetry(telemetry);
+                robot.rightMotor.setPower(0.0);
+                robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+                robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                right = false;
+            }
+            sleep(100);
+            if (!left && !right) {
+                stillGoing = false;
+                telemetry.addData("checkpoint5", "!");
+                updateTelemetry(telemetry);
+            }
+
+
+        }
+
+
+    }
+
+    public void squareOnLine2Reverse() {
+        double white = 0;
+        double white2 = 0;
+        boolean stillGoing = true;
+        boolean right = true;
+        boolean left = true;
+
+        telemetry.addData("checkpoint1", stillGoing);
+        updateTelemetry(telemetry);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        while (left || right) {
+            telemetry.addData("checkpoint2", "!");
+            updateTelemetry(telemetry);
+
+
+            telemetry.addData("right: ", right);
+            telemetry.addData("left: ", left);
+            telemetry.addData("white: ", white);
+            telemetry.addData("white2: ", white2);
+            updateTelemetry(telemetry);
+
+
+            if (right) {
+                robot.rightMotor.setPower(0.10);
+                telemetry.addData("Moving R", "");
+                updateTelemetry(telemetry);
+            }
+            if (left) {
+                robot.leftMotor.setPower(0.10);
+                telemetry.addData("Moving L", "");
+                updateTelemetry(telemetry);
+            }
+            white = robot.lightSensor.getLightDetected();
+            white2 = robot.lightSensor2.getLightDetected();
+            if (white > .8) {
+                robot.leftMotor.setPower(0.0);
+                robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+                left = false;
+                telemetry.addData("checkpoint3", "!");
+                updateTelemetry(telemetry);
+            }
+            if (white2 > .8) {
+                telemetry.addData("checkpoint4", "!");
                 updateTelemetry(telemetry);
                 robot.rightMotor.setPower(0.0);
                 robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -398,94 +394,101 @@ public void squareOnLine2(){
                 right = false;
             }
 
-            if(!left && !right){
+            if (!left && !right) {
                 stillGoing = false;
-                telemetry.addData("checkpoint5","!");
+                telemetry.addData("checkpoint5", "!");
                 updateTelemetry(telemetry);
             }
-
 
 
         }
 
 
-
     }
-    public void calibrateGyro(){
+
+    public void calibrateGyro() {
         ModernRoboticsI2cGyro gyro;   // Hardware Device Object
         int xVal, yVal, zVal = 0;     // Gyro rate Values
         int heading = 0;              // Gyro integrated heading
         int angleZ = 0;
         boolean lastResetState = false;
-        boolean curResetState  = false;
+        boolean curResetState = false;
 
         // get a reference to a Modern Robotics GyroSensor object.
-        gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
 
         telemetry.addData(">", "Gyro Calibrating. Do Not move!");
         telemetry.update();
         gyro.calibrate();
 
         // make sure the gyro is calibrated.
-        while (!isStopRequested() && gyro.isCalibrating())  {
+        while (!isStopRequested() && gyro.isCalibrating()) {
             sleep(50);
             idle();
         }
     }
 
-public void turnRightGyro (float degrees){
-    int original_anglez = 0;
-    ModernRoboticsI2cGyro gyro;
-    int xVal, yVal, zVal = 0;
-    int heading = 0;
-    int angleZ = 0;
-    gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
-    original_anglez  = gyro.getIntegratedZValue();
-    sleep(500);
-    while((angleZ)*-1 < ((original_anglez + ((degrees-25)))))
-    {   telemetry.addData("anglez original:", original_anglez);
+    public void turnRightGyro(float degrees) {
+        int original_anglez = 0;
+        ModernRoboticsI2cGyro gyro;
+        int xVal, yVal, zVal = 0;
+        int heading = 0;
+        int angleZ = 0;
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        original_anglez = gyro.getIntegratedZValue();
+        sleep(500);
+        while ((angleZ) * -1 < ((original_anglez + ((degrees - 25))))) {
+            telemetry.addData("anglez original:", original_anglez);
 
-        telemetry.addData("angleZ:", angleZ);
+            telemetry.addData("angleZ:", angleZ);
 
-        telemetry.addData("gyro:", gyro.getIntegratedZValue());
-        updateTelemetry(telemetry);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            telemetry.addData("gyro:", gyro.getIntegratedZValue());
+            updateTelemetry(telemetry);
+            robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        robot.rightMotor.setPower(0.50);
+            robot.rightMotor.setPower(0.50);
 
-        angleZ = gyro.getIntegratedZValue();
+            angleZ = gyro.getIntegratedZValue();
+        }
+
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setPower(0.0);
+
+
     }
 
-    robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    robot.rightMotor.setPower(0.0);
-
-
-}
     public enum direction_t {
         RIGHT, LEFT
     }
 
-    public void turnGyro (float targetHeading) {
+    public void turnGyro(float targetHeading) {
         int original_anglez = 0;
         ModernRoboticsI2cGyro gyro;
         int xVal, yVal, zVal = 0;
         int heading = 0;
         int angleZ = 0;
         float MIDPOWER = 0;
-        double DRIVEGAIN = 0.01;
+        double DRIVEGAIN = 1;
         int timer = 0;
-        double currentHeading, headingError, driveSteering, leftPower, rightPower = 0.0;
+        double currentHeading, headingError, driveSteering, leftPower, rightPower, oldCurrentHeading = 0.0;
+        long startTime = 0;
         gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
         calibrateGyro();
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         currentHeading = gyro.getHeading();
+
         telemetry.addData("Current Pos", currentHeading);
         updateTelemetry(telemetry);
 
-        while (currentHeading < targetHeading) {
+        startTime = System.currentTimeMillis();
+
+
+        while (currentHeading < targetHeading && (System.currentTimeMillis() < (startTime + 6000))) {
             currentHeading = gyro.getHeading();
             headingError = targetHeading - currentHeading;
             driveSteering = headingError * DRIVEGAIN;
-            leftPower = MIDPOWER + driveSteering;
+            leftPower = MIDPOWER - driveSteering;
 
             if (leftPower > 1) {
                 leftPower = 1;
@@ -493,7 +496,15 @@ public void turnRightGyro (float degrees){
             if (leftPower < -1) {
                 leftPower = -1;
             }
-            while(currentHeading > targetHeading){
+            /*
+            if (leftPower < .15 && leftPower > 0){
+                leftPower = .15;
+            }
+            if (leftPower > -.15 && leftPower < 0){
+                leftPower = -.15;
+            }
+            */
+            /*while(currentHeading > targetHeading){
                 telemetry.addData("current pos >", "target pos");
                 telemetry.addData("cur pos", currentHeading);
                 telemetry.addData("tar pos", targetHeading);
@@ -504,15 +515,24 @@ public void turnRightGyro (float degrees){
 
                 sleep(10000);
                 break;
-            }
+            }*/
 
-            rightPower = MIDPOWER - driveSteering;
+            rightPower = MIDPOWER + driveSteering;
             if (rightPower > 1) {
                 rightPower = 1;
             }
             if (rightPower < -1) {
                 rightPower = -1;
             }
+            /*
+            if (rightPower < .15 && rightPower > 0){
+                rightPower = .15;
+            }
+            if (rightPower > -.15 && rightPower < 0){
+                rightPower = -.15;
+            }
+            /*
+
 
             robot.leftMotor.setPower(leftPower);
             robot.rightMotor.setPower(rightPower);
@@ -525,10 +545,9 @@ public void turnRightGyro (float degrees){
             telemetry.addData("headingErr", headingError);
             telemetry.addData("driveSteer", driveSteering);
             updateTelemetry(telemetry);
-
+            timer++;
         }
-        robot.rightMotor.setPower(0.0);
-        robot.leftMotor.setPower(0.0);
+
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -632,24 +651,26 @@ public void turnRightGyro (float degrees){
             sleep(50);
             idle();
         }*/
-        waitForStart();
-        calibrateGyro();
-        sleep(1000);
-        turnGyro(90);
-
-
-
-
-
-
-
-
-
-
-
-
+            waitForStart();
+            calibrateGyro();
+            sleep(1000);
+            turnGyro(350);
+            sleep(5000);
+            turnGyro(180);
+            sleep(5000);
+            turnGyro(90);
+            sleep(5000);
+            turnGyro(45);
+            sleep(5000);
+            turnGyro(20);
+            sleep(5000);
+            turnGyro(5);
+            sleep(5000);
+            
+        }
     }
 }
+
 
 
 
