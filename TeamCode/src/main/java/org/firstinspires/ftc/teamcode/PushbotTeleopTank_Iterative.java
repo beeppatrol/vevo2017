@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
@@ -82,10 +83,10 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             robot.motorShooter = hardwareMap.dcMotor.get("motorShooter");
 
             robot.particle_grabber= hardwareMap.dcMotor.get ("particle_grabber");
-            robot.linearSlide = hardwareMap.crservo.get("linearSlide");
+           // robot.linearSlide = hardwareMap.crservo.get("linearSlide");
             robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
             robot.lightSensor2 = hardwareMap.opticalDistanceSensor.get("oDS2");
-
+            robot.gyro = hardwareMap.gyroSensor.get("gyro");
             telemetry.addData("Say", "motors ready");
 
             robot.rightMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -167,6 +168,9 @@ public class PushbotTeleopTank_Iterative extends OpMode{
                 rightStick = -0.5f;
             }
         }
+        if(gamepad2.y){
+            robot.gyro.getHeading();
+        }
 
         if (gamepad1.right_bumper && !halfPower){
             halfPower = true;
@@ -215,7 +219,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          float shooterPower = gamepad2.left_trigger;
 
 robot.motorShooter.setPower(shooterPower);
-
+/*
         if (gamepad2.y){
             robot.linearSlide.setPower(1.0);
             telemetry.addData("y registered", sliding);
@@ -229,8 +233,8 @@ robot.motorShooter.setPower(shooterPower);
         if(gamepad2.left_stick_button){
             robot.linearSlide.setPower(-1.0);
             sliding = true;
-        }
-        telemetry.addData("linearSlide's power: ", robot.linearSlide.getPower());
+        }*/
+        //telemetry.addData("linearSlide's power: ", robot.linearSlide.getPower());
         telemetry.addData("left", "%.2f", leftStick);
         telemetry.addData("right", "%.2f", rightStick);
 

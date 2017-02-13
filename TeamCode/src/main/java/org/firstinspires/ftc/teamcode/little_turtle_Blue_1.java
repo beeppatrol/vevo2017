@@ -39,7 +39,7 @@ public class little_turtle_Blue_1 extends OpMode{
 
         robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
 
-        robot.linearSlide = hardwareMap.crservo.get("linearSlide");
+       // robot.linearSlide = hardwareMap.crservo.get("linearSlide");
         robot.motorShooter = hardwareMap.dcMotor.get("motorShooter");
         robot.particle_grabber = hardwareMap.dcMotor.get("particle_grabber");
 
@@ -229,7 +229,7 @@ public class little_turtle_Blue_1 extends OpMode{
         switch (v_state) {
             case 0:
 //this.resetStartTime();
-                if(this.getRuntime() > 15){
+                if(this.getRuntime() > 10){
                     v_state = 1;
 
                     break;
@@ -237,6 +237,9 @@ public class little_turtle_Blue_1 extends OpMode{
                 if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
                 }
 
                 break;
@@ -245,6 +248,9 @@ public class little_turtle_Blue_1 extends OpMode{
                 if(robot.leftMotor.getCurrentPosition() > 0 || robot.rightMotor.getCurrentPosition() >0){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
                 }
                 v_state = 2;
                 break;
@@ -260,6 +266,9 @@ public class little_turtle_Blue_1 extends OpMode{
                 if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
                 }
                 v_state = 4;
                 break;
@@ -267,6 +276,9 @@ public class little_turtle_Blue_1 extends OpMode{
                 if(robot.leftMotor.getCurrentPosition() > 0 || robot.rightMotor.getCurrentPosition() >0) {
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
                 }
                 this.resetStartTime();
 
@@ -278,7 +290,7 @@ public class little_turtle_Blue_1 extends OpMode{
                     robot.motorShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 }
 
-                if (this.getRuntime() > 2.0) {
+                if (this.getRuntime() > 10.0) {
 
                     v_state = 6;
                 }
@@ -322,6 +334,9 @@ public class little_turtle_Blue_1 extends OpMode{
                     robot.motorShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
                 }
 
@@ -344,6 +359,9 @@ public class little_turtle_Blue_1 extends OpMode{
                if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()) {
                    robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                    robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                   robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                   robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
                    v_state = 13;
                }
                break;
@@ -351,10 +369,13 @@ public class little_turtle_Blue_1 extends OpMode{
                 if(robot.leftMotor.getCurrentPosition() > 0 || robot.rightMotor.getCurrentPosition() >0){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
                 }
                 else{
-                    v_state = 14;
+                    v_state = 15;
                 }
 
                 break;
@@ -366,6 +387,9 @@ public class little_turtle_Blue_1 extends OpMode{
                 if(!robot.rightMotor.isBusy() && !robot.leftMotor.isBusy()){
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
                 }
                 v_state = 16;
                 break;
@@ -373,6 +397,9 @@ public class little_turtle_Blue_1 extends OpMode{
                 if(robot.leftMotor.getCurrentPosition() > 0 || robot.rightMotor.getCurrentPosition() >0) {
                     robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                    robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
                 }
 
                 v_state = 17;

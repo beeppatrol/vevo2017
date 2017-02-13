@@ -411,7 +411,7 @@ public void squareOnLine2(){
 
 
 
-    public void getBeaconColor() {
+ /*   public void getBeaconColor() {
         double red = robot.colorSensor.red();
         double blue = robot.colorSensor.blue();
         telemetry.addData("color sensor reads red as: ", red);
@@ -446,8 +446,8 @@ public void squareOnLine2(){
     public void linearSlideReverse(){
         robot.linearSlide.setPower(-1.0);
         sleep(1000);
-        robot.linearSlide.setPower(0.0);
-    }
+        robot.linearSlide.setPower(0.0);*/
+    //}
     @Override
     public void runOpMode() throws InterruptedException {
         int i = 0;

@@ -43,7 +43,7 @@ public class HardwarePushbot {
     public DcMotor motorShooter = null;
     public DcMotor rightMotor2 = null;
     public DcMotor particleGrabber = null;
-    public CRServo linearSlide = null;
+    //public CRServo linearSlide = null;
 
 
    /* public static final double MID_SERVO       =  0.5 ;

@@ -42,7 +42,7 @@ public class Big_Bear_Blue_1 extends OpMode{
        /* robot.lightSensor = hardwareMap.opticalDistanceSensor.get("oDS");
         robot.lightSensor2 = hardwareMap.opticalDistanceSensor.get("oDS2");*/
 
-        robot.linearSlide = hardwareMap.crservo.get("linearSlide");
+       // robot.linearSlide = hardwareMap.crservo.get("linearSlide");
         robot.motorShooter = hardwareMap.dcMotor.get("motorShooter");
         robot.particle_grabber = hardwareMap.dcMotor.get("particle_grabber");
 

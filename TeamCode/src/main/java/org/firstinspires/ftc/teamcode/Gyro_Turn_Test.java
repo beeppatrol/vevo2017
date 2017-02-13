@@ -461,7 +461,7 @@ public abstract class Gyro_Turn_Test extends LinearOpMode {
         RIGHT, LEFT
     }
 
-    public void turnGyro(float targetHeading) {
+    public double turnGyro(float targetHeading) {
         int original_anglez = 0;
         ModernRoboticsI2cGyro gyro;
         int xVal, yVal, zVal = 0;
@@ -483,8 +483,7 @@ public abstract class Gyro_Turn_Test extends LinearOpMode {
 
         startTime = System.currentTimeMillis();
 
-
-        while (currentHeading < targetHeading && (System.currentTimeMillis() < (startTime + 6000))) {
+        do {
             currentHeading = gyro.getHeading();
             headingError = targetHeading - currentHeading;
             driveSteering = headingError * DRIVEGAIN;
@@ -531,22 +530,21 @@ public abstract class Gyro_Turn_Test extends LinearOpMode {
             if (rightPower > -.15 && rightPower < 0){
                 rightPower = -.15;
             }
-            /*
-
+            */
 
             robot.leftMotor.setPower(leftPower);
             robot.rightMotor.setPower(rightPower);
 
-
-            telemetry.addData("curHeading", currentHeading);
-            telemetry.addData("tarHeading", targetHeading);
-            telemetry.addData("leftPwr", leftPower);
-            telemetry.addData("rightPwr", rightPower);
-            telemetry.addData("headingErr", headingError);
-            telemetry.addData("driveSteer", driveSteering);
-            updateTelemetry(telemetry);
             timer++;
-        }
+        } while (currentHeading < targetHeading && (System.currentTimeMillis() < (startTime + 6000)));
+
+        telemetry.addData("curHeading", currentHeading);
+        telemetry.addData("tarHeading", targetHeading);
+        telemetry.addData("leftPwr", leftPower);
+        telemetry.addData("rightPwr", rightPower);
+        telemetry.addData("headingErr", headingError);
+        telemetry.addData("driveSteer", driveSteering);
+        updateTelemetry(telemetry);
 
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -554,7 +552,7 @@ public abstract class Gyro_Turn_Test extends LinearOpMode {
 
         sleep(10000);
 
-
+        return currentHeading;
     }
 
 
@@ -597,8 +595,126 @@ public abstract class Gyro_Turn_Test extends LinearOpMode {
         sleep(1000);
         robot.linearSlide.setPower(0.0);
     }
+
     @Override
     public void runOpMode() throws InterruptedException {
+        int i = 0;
+        robot.init(hardwareMap);
+
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        idle();
+
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        telemetry.addData("ready to go", "all is ready");
+
+        /*while(i<1000000) {
+            telemetry.addData("light1=", robot.lightSensor.getLightDetected());
+            telemetry.addData("light2=", robot.lightSensor.getLightDetected());
+            updateTelemetry(telemetry);
+            i++;
+        }*/
+
+
+
+        waitForStart();
+        robot.colorSensor.enableLed(false);
+
+
+        driveForwards(1.5,1.5,1);
+        telemetry.addData("made it here","1");
+        updateTelemetry(telemetry);
+        sleep(100);
+
+        turnRight(0.20,0.20, 0.25);
+        //sleep(600);
+
+        driveForwards(5.0, 5.0, 0.3);
+
+        driveForwards(.70, .70, 0.1);
+
+        driveBackwards(0.3, 0.3, 0.8);
+        // sleep(500);
+
+        turnRight(0.35, 0.35, 0.35);
+        // sleep(500);
+        telemetry.addData("got here", "!");
+        updateTelemetry(telemetry);
+
+        // squareOnLine2Reverse();
+
+        squareOnLine2();
+        sleep(1000);
+
+        driveBackwards(.2,.2,.4);
+
+
+
+        if(robot.colorSensor.red() > robot.colorSensor.blue()) {
+            telemetry.addData("red", robot.colorSensor.red());
+            telemetry.addData("blue", robot.colorSensor.blue());
+
+            updateTelemetry(telemetry);
+            //driveBackwards(.1,.1,.3);
+        }
+        else {
+            driveBackwards(.3,.3,.7);
+
+        }
+
+        turnLeft(.46,.46,.3);
+        driveForwards(1,1,.3);
+
+        sleep(100);
+
+        driveBackwards(4,4,.9);
+        turnLeft(1,1,1);
+
+    }
+
+
+    public void runMyOpMode() throws InterruptedException {
+        int i = 0;
+
+        ///////////////////////////
+        ModernRoboticsI2cGyro gyro;   // Hardware Device Object
+        int xVal, yVal, zVal = 0;     // Gyro rate Values
+        int heading = 0;              // Gyro integrated heading
+        int angleZ = 0;
+        int original_anglez = 0;
+        boolean lastResetState = false;
+        boolean curResetState  = false;
+
+        // get a reference to a Modern Robotics GyroSensor object.
+        gyro = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
+
+        // start calibrating the gyro.
+
+
+        telemetry.addData(">", "Gyro Calibrated.  Press Start.");
+
+        telemetry.addData("ready to go", "all is ready");
+        // wait for the start button to be pressed.
+
+
+            waitForStart();
+
+    }
+
+
+
+
+
+
+
+
+
+
+    public void myMode() throws InterruptedException {
         int i = 0;
 
         ///////////////////////////
@@ -633,6 +749,8 @@ public abstract class Gyro_Turn_Test extends LinearOpMode {
         //robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("ready to go", "all is ready");
+        // wait for the start button to be pressed.
+
 
         /*while(i<1000000) {
             telemetry.addData("light1=", robot.lightSensor.getLightDetected());
@@ -651,25 +769,27 @@ public abstract class Gyro_Turn_Test extends LinearOpMode {
             sleep(50);
             idle();
         }*/
-            waitForStart();
-            calibrateGyro();
-            sleep(1000);
-            turnGyro(350);
-            sleep(5000);
-            turnGyro(180);
-            sleep(5000);
-            turnGyro(90);
-            sleep(5000);
-            turnGyro(45);
-            sleep(5000);
-            turnGyro(20);
-            sleep(5000);
-            turnGyro(5);
-            sleep(5000);
-            
-        }
+        waitForStart();
+        calibrateGyro();
+        sleep(1000);
+        turnGyro(350);
+        sleep(5000);
+        turnGyro(180);
+        sleep(5000);
+        turnGyro(90);
+        sleep(5000);
+        turnGyro(45);
+        sleep(5000);
+        turnGyro(20);
+        sleep(5000);
+        turnGyro(5);
+        sleep(5000);
+
+
+
     }
 }
+
 
 
 
