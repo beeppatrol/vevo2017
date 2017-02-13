@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 /**
  * This is NOT an opmode.
@@ -40,6 +41,7 @@ public class HardwarePushbot
     public DcMotor rightMotor2 = null;
     public OpticalDistanceSensor lightSensor;
     public OpticalDistanceSensor lightSensor2;
+    public GyroSensor gyro;
 
 
 
