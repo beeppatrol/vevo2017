@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -414,6 +415,7 @@ public void squareOnLine2(){
 
 
 
+
    /* public void getBeaconColor() {
         double red = robot.colorSensor.red();
         double blue = robot.colorSensor.blue();
@@ -475,12 +477,13 @@ public void squareOnLine2(){
         }*/
 
 
-
         waitForStart();
 robot.colorSensor.enableLed(false);
-
+        Gyro_Turn_Test_2 gyro = new Gyro_Turn_Test_2();
 
       driveForwards(1.5,1.5,1);
+
+        gyro.turnGyro(30f);
         /*robot.motorShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motorShooter.setPower(1.0);*/
        /* robot.particle_grabber.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -489,9 +492,9 @@ robot.colorSensor.enableLed(false);
         robot.motorShooter.setPower(0.0);
         robot.particle_grabber.setPower(0.0); */
         sleep(100);
+       // turnGyro(90);
 
-        turnLeft(0.25, 0.25, 0.25);
-
+        /*
 
         driveForwards(5.0, 5.0, 0.3);
 
@@ -499,8 +502,8 @@ robot.colorSensor.enableLed(false);
 
         driveBackwards(0.2, 0.2, 0.8);
 
+        gyro.turnGyro(90f);
 
-        turnRight(0.4, 0.4, 0.35);
        // sleep(500);
         telemetry.addData("got here", "!");
         updateTelemetry(telemetry);
@@ -523,34 +526,37 @@ robot.colorSensor.enableLed(false);
         telemetry.addData("color sensor blue =",robot.colorSensor.blue());
         telemetry.addData("color sensor red =",robot.colorSensor.red());
         updateTelemetry(telemetry);
-        sleep(1000);*/
-
+        sleep(1000);
+*/
      //   driveBackwards(1,1,1);
 
-        if(robot.colorSensor.blue() > robot.colorSensor.red()) {
-            telemetry.addData("red", robot.colorSensor.red());
-            telemetry.addData("blue", robot.colorSensor.blue());
+       // if(
+        //robot.colorSensor.blue() > robot.colorSensor.red()) {
+           // telemetry.addData("red", robot.colorSensor.red());
+           // telemetry.addData("blue", robot.colorSensor.blue())
 
-            updateTelemetry(telemetry);
+           // updateTelemetry(telemetry);
             //driveBackwards(.1,.1,.3);
-        }
-        else {
-            driveBackwards(.3,.3,.7);
+       // }
+       // else {
+         //   driveBackwards(.3,.3,.7);
             //turn to the left 15 deg.
             //drive backwards one rotation
             //turn 15 deg. to right
             //drive forward 1.2 rotations
         }
 
-        turnLeft(.43,.43,.3);
+       /* turnLeft(.43,.43,.3);
         driveForwards(1,1,.3);
 
+
+        gyro.turnGyro(90f);
         sleep(100);
 
         driveBackwards(4,4,.9);
         turnLeft(1,1,1);
 
-
+*/
 
        /* turnRight(.4,.4,.4);
        //not tested
@@ -596,7 +602,7 @@ robot.colorSensor.enableLed(false);
 
 
     }
-}
+//}
 
 
 
