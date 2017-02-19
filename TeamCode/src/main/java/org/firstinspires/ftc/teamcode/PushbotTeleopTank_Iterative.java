@@ -238,6 +238,10 @@ robot.motorShooter.setPower(shooterPower);
         telemetry.addData("left", "%.2f", leftStick);
         telemetry.addData("right", "%.2f", rightStick);
 
+        //DRIVER CONTROLED ENHANSMENTS
+
+        //telemetry.addData("heading: ", "")
+
 
     }
 
