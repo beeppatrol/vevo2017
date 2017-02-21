@@ -84,7 +84,7 @@ boolean targetColor = true;
         int angleZ = 0;
         float MIDPOWER = 0;
         double DRIVEGAIN = 1;
-        double TOLERANCE = .5;
+        double TOLERANCE = .1;
         int timer = 0;
         double currentHeading, headingError, driveSteering, leftPower, rightPower, oldCurrentHeading = 0.0;
         long startTime = 0;
@@ -99,7 +99,7 @@ boolean targetColor = true;
 
         startTime = System.currentTimeMillis();
         //currentHeading = gyro.getHeading();
-        SetTunings(.01, 0, 0);
+        SetTunings(.01, 0, 0.2);
 
         Setpoint = targetHeading;
         Input = gyro.getHeading();
@@ -111,9 +111,12 @@ boolean targetColor = true;
             robot.leftMotor.setPower(-Output);
             robot.rightMotor.setPower(Output);
             timer++;
-            sleep(1000);
+            //sleep(1000);
             Input = gyro.getHeading();
-            sleep(1000);
+            //sleep(1000);
+            telemetry.addData("curHeading", Input);
+            telemetry.addData("tarHeading", Setpoint);
+            updateTelemetry(telemetry);
             //} while (Input < targetHeading && (System.currentTimeMillis() < (startTime + 6000)));
         } while ((Math.abs(Input - Setpoint) > TOLERANCE)   && (System.currentTimeMillis() < (startTime + 6000)));
 
@@ -123,7 +126,7 @@ boolean targetColor = true;
         telemetry.addData("rightPwr", Output);
         //telemetry.addData("headingErr", headingError);
         //telemetry.addData("driveSteer", driveSteering);
-        telemetry.addData("DRIVEGAIN", DRIVEGAIN);
+        //telemetry.addData("DRIVEGAIN", DRIVEGAIN);
         updateTelemetry(telemetry);
 
 
@@ -171,6 +174,8 @@ boolean targetColor = true;
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftMotor.setPower(0);
+        robot.rightMotor.setPower(0);
 
     }
 
@@ -573,8 +578,8 @@ public void squareOnLine2(){
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         idle();
 
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("ready to go", "all is ready");
         calibrateGyro();
@@ -588,17 +593,24 @@ public void squareOnLine2(){
 
 
         waitForStart();
-robot.colorSensor.enableLed(false);
+        robot.colorSensor.enableLed(false);
        // Gyro_Turn_Test_2 myGyro = new Gyro_Turn_Test_2();
-calibrateGyro();
+//calibrateGyro();
 
-      driveForwards(1.5,1.5,1);
+        //driveForwards(1,1,1);
+        sleep(3000);
+        //calibrateGyro();
+
+        //sleep(1000);
+        turnGyro(84.5f);
+        //sleep(1000);
+        //driveForwards(1,1,1);
         sleep(1000);
-        calibrateGyro();
-
+        turnGyro(84.5f);
         sleep(1000);
-        turnGyro(30);
-
+        //driveForwards(1,1,1);
+        //sleep(1000);
+        turnGyro(84.5f);
 
         /*robot.motorShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motorShooter.setPower(1.0);*/
@@ -607,8 +619,8 @@ calibrateGyro();
         sleep(4000);
         robot.motorShooter.setPower(0.0);
         robot.particle_grabber.setPower(0.0); */
-        sleep(100);
-       // turnGyro(90);
+        sleep(1000);
+        turnGyro(84.5f);
 
         /*
 
