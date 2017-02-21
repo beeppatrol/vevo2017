@@ -26,6 +26,115 @@ boolean targetColor = true;
     HardwarePushbot robot = new HardwarePushbot();
 
 
+
+    public void calibrateGyro() {
+        ModernRoboticsI2cGyro gyro;   // Hardware Device Object
+        int xVal, yVal, zVal = 0;     // Gyro rate Values
+        int heading = 0;              // Gyro integrated heading
+        int angleZ = 0;
+        boolean lastResetState = false;
+        boolean curResetState = false;
+
+        // get a reference to a Modern Robotics GyroSensor object.
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+
+        telemetry.addData(">", "Gyro Calibrating. Do Not move!");
+        telemetry.update();
+        gyro.calibrate();
+        gyro.resetZAxisIntegrator();
+        // make sure the gyro is calibrated.
+        while (!isStopRequested() && gyro.isCalibrating()) {
+            sleep(50);
+            idle();
+        }
+    }
+
+    long lastTime;
+    double Input, Output, Setpoint;
+    double errSum, lastErr;
+    double kp, ki, kd;
+
+
+    public void ComputePID() {
+        long now = System.currentTimeMillis();
+        double timeChange = (double) (now - lastTime);
+        double error = Setpoint - Input;
+        errSum += (error * timeChange);
+        double dErr = (error - lastErr);
+
+        Output = kp * error + ki * errSum + kd * dErr;
+        lastErr = error;
+        lastTime = now;
+    }
+
+    public void SetTunings (double Kp, double Ki, double Kd)
+    {
+        kp = Kp;
+        ki = Ki;
+        kd = Kd;
+    }
+
+
+
+    public double turnGyro(float targetHeading) {
+        int original_anglez = 0;
+        ModernRoboticsI2cGyro gyro;
+        int xVal, yVal, zVal = 0;
+        int heading = 0;
+        int angleZ = 0;
+        float MIDPOWER = 0;
+        double DRIVEGAIN = 1;
+        double TOLERANCE = .5;
+        int timer = 0;
+        double currentHeading, headingError, driveSteering, leftPower, rightPower, oldCurrentHeading = 0.0;
+        long startTime = 0;
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        calibrateGyro();
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        //telemetry.addData("Current Pos", currentHeading);
+        //updateTelemetry(telemetry);
+
+        startTime = System.currentTimeMillis();
+        //currentHeading = gyro.getHeading();
+        SetTunings(.01, 0, 0);
+
+        Setpoint = targetHeading;
+        Input = gyro.getHeading();
+        //Input = currentHeading;
+
+        do {
+
+            ComputePID();
+            robot.leftMotor.setPower(-Output);
+            robot.rightMotor.setPower(Output);
+            timer++;
+            sleep(1000);
+            Input = gyro.getHeading();
+            sleep(1000);
+            //} while (Input < targetHeading && (System.currentTimeMillis() < (startTime + 6000)));
+        } while ((Math.abs(Input - Setpoint) > TOLERANCE)   && (System.currentTimeMillis() < (startTime + 6000)));
+
+        telemetry.addData("curHeading", Input);
+        telemetry.addData("tarHeading", Setpoint);
+        telemetry.addData("leftPwr", -Output);
+        telemetry.addData("rightPwr", Output);
+        //telemetry.addData("headingErr", headingError);
+        //telemetry.addData("driveSteer", driveSteering);
+        telemetry.addData("DRIVEGAIN", DRIVEGAIN);
+        updateTelemetry(telemetry);
+
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        sleep(10000);
+
+        return Input;
+    }
+
     public void driveForwards(double rightAmount, double leftAmount, double speed) {
 
         telemetry.addData("say", "Drive forwards VROOOM!");
@@ -468,6 +577,7 @@ public void squareOnLine2(){
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("ready to go", "all is ready");
+        calibrateGyro();
 
         /*while(i<1000000) {
             telemetry.addData("light1=", robot.lightSensor.getLightDetected());
@@ -479,11 +589,17 @@ public void squareOnLine2(){
 
         waitForStart();
 robot.colorSensor.enableLed(false);
-        Gyro_Turn_Test_2 gyro = new Gyro_Turn_Test_2();
+       // Gyro_Turn_Test_2 myGyro = new Gyro_Turn_Test_2();
+calibrateGyro();
 
       driveForwards(1.5,1.5,1);
+        sleep(1000);
+        calibrateGyro();
 
-        gyro.turnGyro(30f);
+        sleep(1000);
+        turnGyro(30);
+
+
         /*robot.motorShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motorShooter.setPower(1.0);*/
        /* robot.particle_grabber.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

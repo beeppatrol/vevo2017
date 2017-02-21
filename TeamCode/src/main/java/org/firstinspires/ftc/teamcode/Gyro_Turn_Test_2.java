@@ -358,7 +358,9 @@ boolean targetColor = true;
             robot.leftMotor.setPower(-Output);
             robot.rightMotor.setPower(Output);
             timer++;
+            sleep(1000);
             Input = gyro.getHeading();
+            sleep(1000);
         //} while (Input < targetHeading && (System.currentTimeMillis() < (startTime + 6000)));
          } while ((Math.abs(Input - Setpoint) > TOLERANCE)   && (System.currentTimeMillis() < (startTime + 6000)));
 
