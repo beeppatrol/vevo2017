@@ -594,23 +594,47 @@ public void squareOnLine2(){
 
         waitForStart();
         robot.colorSensor.enableLed(false);
-       // Gyro_Turn_Test_2 myGyro = new Gyro_Turn_Test_2();
-//calibrateGyro();
+
+        driveForwards(1.2,1.2,1);
+
+
+
+
+
+        robot.motorShooter.setPower(1);
+
+        sleep(1000);
+        robot.motorShooter.setPower(0.0);
+
+        robot.particle_grabber.setPower(1.0);
+
+        sleep(2000);
+        robot.particle_grabber.setPower(0.0);
+        robot.motorShooter.setPower(1.0);
+
+        sleep(1000);
+
+        robot.motorShooter.setPower(0.0);
+        driveForwards(1.3,1.3,1);
+
+        turnGyro(65.5f);
+        sleep(100);
+        calibrateGyro();
+        driveForwards(2.6, 2.6, .8);
+
+        if( robot.colorSensor.blue() > robot.colorSensor.red()){
+            driveForwards(.5,.5,.7);
+
+        }
+        else{
+            turnRight(.2,.2,.6);
+            driveForwards(1,1,.3);
+
+        }
+
 
         //driveForwards(1,1,1);
-        sleep(3000);
-        //calibrateGyro();
 
-        //sleep(1000);
-        turnGyro(84.5f);
-        //sleep(1000);
-        //driveForwards(1,1,1);
-        sleep(1000);
-        turnGyro(84.5f);
-        sleep(1000);
-        //driveForwards(1,1,1);
-        //sleep(1000);
-        turnGyro(84.5f);
 
         /*robot.motorShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motorShooter.setPower(1.0);*/
@@ -619,8 +643,7 @@ public void squareOnLine2(){
         sleep(4000);
         robot.motorShooter.setPower(0.0);
         robot.particle_grabber.setPower(0.0); */
-        sleep(1000);
-        turnGyro(84.5f);
+
 
         /*
 
