@@ -430,7 +430,7 @@ public void squareOnLine2(){
         white = robot.lightSensor.getLightDetected();
         white2 = robot.lightSensor2.getLightDetected();
         if(white >.8){
-            //robot.leftMotor.setPower(0.0);
+            robot.leftMotor.setPower(0.0);
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -441,7 +441,7 @@ public void squareOnLine2(){
         if( white2 > .8){
             telemetry.addData("checkpoint4","!");
             updateTelemetry(telemetry);
-            //robot.rightMotor.setPower(0.0);
+            robot.rightMotor.setPower(0.0);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -603,35 +603,8 @@ public void squareOnLine2(){
 
         /* START KATIE CODE FROM 2/21 */
 
-        driveForwards(1.7,1.7,1);
-
-        turnGyro(35);
-
-        robot.motorShooter.setPower(1);
-
-        sleep(1000);
-        robot.motorShooter.setPower(0.0);
-
-        robot.particle_grabber.setPower(1.0);
-
-        sleep(2000);
-        robot.particle_grabber.setPower(0.0);
-        robot.motorShooter.setPower(1.0);
-
-        sleep(1000);
-
-        robot.motorShooter.setPower(0.0);
-        driveForwards(1,1,1);
-
-        turnGyro(25);
-        sleep(500);
-        driveForwards(3.5,3.5,1);
-        driveForwards(.7,.7,.2);
-        driveForwards(0,.3,.2);
-
-        driveBackwards(.2,.2,1);
-        sleep(500);
-        turnGyro(84.5f);
+        driveForwards(2.5,2.5,1);
+        driveForwards(.5,0,1);
         squareOnLine2();
 
 
