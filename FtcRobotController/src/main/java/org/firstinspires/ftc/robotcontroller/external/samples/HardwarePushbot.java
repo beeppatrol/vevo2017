@@ -42,6 +42,7 @@ public class HardwarePushbot
     public OpticalDistanceSensor lightSensor;
     public OpticalDistanceSensor lightSensor2;
     public GyroSensor gyro;
+    public DcMotor lifter = null;
 
 
 
@@ -72,6 +73,7 @@ public class HardwarePushbot
         colorSensor = hwMap.colorSensor.get("colorSensor");
         lightSensor = hwMap.opticalDistanceSensor.get("oDS");
         lightSensor2 = hwMap.opticalDistanceSensor.get("oDS2");
+        lifter = hwMap.dcMotor.get("lifter");
 
 
 
@@ -82,6 +84,7 @@ public class HardwarePushbot
         motorShooter.setDirection(DcMotor.Direction.FORWARD);
        particle_grabber.setDirection(DcMotor.Direction.REVERSE);
         linearSlide.setDirection(CRServo.Direction.REVERSE);
+        lifter.setDirection(DcMotor.Direction.REVERSE);
 
 
 
@@ -91,6 +94,7 @@ public class HardwarePushbot
         motorShooter.setPower(0);
        particle_grabber.setPower(0);
         linearSlide.setPower(0);
+        lifter.setPower(0);
 
         // TODO restore this:
 //        armMotor.setPower(0);
@@ -101,6 +105,7 @@ public class HardwarePushbot
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         particle_grabber.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lifter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // TODO restore this:
 //        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

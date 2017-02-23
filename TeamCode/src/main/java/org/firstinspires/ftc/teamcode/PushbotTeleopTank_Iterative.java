@@ -32,6 +32,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -61,6 +62,182 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class PushbotTeleopTank_Iterative extends OpMode{
 
 
+
+
+    public void calibrateGyro() {
+        ModernRoboticsI2cGyro gyro;   // Hardware Device Object
+        int xVal, yVal, zVal = 0;     // Gyro rate Values
+        int heading = 0;              // Gyro integrated heading
+        int angleZ = 0;
+        boolean lastResetState = false;
+        boolean curResetState = false;
+
+        // get a reference to a Modern Robotics GyroSensor object.
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+
+        telemetry.addData(">", "Gyro Calibrating. Do Not move!");
+        telemetry.update();
+        gyro.calibrate();
+        gyro.resetZAxisIntegrator();
+        // make sure the gyro is calibrated.
+        /*while (!isStopRequested() && gyro.isCalibrating()) {
+            sleep(50);
+            idle();*/
+        }
+
+
+    long lastTime;
+    double Input, Output, Setpoint;
+    double errSum, lastErr;
+    double kp, ki, kd;
+
+
+    public void ComputePID() {
+        long now = System.currentTimeMillis();
+        double timeChange = (double) (now - lastTime);
+        double error = Setpoint - Input;
+        errSum += (error * timeChange);
+        double dErr = (error - lastErr);
+
+        Output = kp * error + ki * errSum + kd * dErr;
+        lastErr = error;
+        lastTime = now;
+    }
+
+    public void SetTunings (double Kp, double Ki, double Kd)
+    {
+        kp = Kp;
+        ki = Ki;
+        kd = Kd;
+    }
+
+
+
+    public double turnGyro(float targetHeading) {
+        int original_anglez = 0;
+        ModernRoboticsI2cGyro gyro;
+        int xVal, yVal, zVal = 0;
+        int heading = 0;
+        int angleZ = 0;
+        float MIDPOWER = 0;
+        double DRIVEGAIN = 1;
+        double TOLERANCE = .1;
+        int timer = 0;
+        double currentHeading, headingError, driveSteering, leftPower, rightPower, oldCurrentHeading = 0.0;
+        long startTime = 0;
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        //calibrateGyro();
+        gyro.resetZAxisIntegrator();
+
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        //telemetry.addData("Current Pos", currentHeading);
+        //updateTelemetry(telemetry);
+
+        startTime = System.currentTimeMillis();
+        //currentHeading = gyro.getHeading();
+        SetTunings(.01, 0, 0.2);
+
+        Setpoint = targetHeading;
+        Input = gyro.getHeading();
+        //Input = currentHeading;
+
+        do {
+
+            ComputePID();
+            robot.leftMotor.setPower(-Output);
+            robot.rightMotor.setPower(Output);
+            timer++;
+            //sleep(1000);
+            Input = gyro.getHeading();
+            //sleep(1000);
+            telemetry.addData("curHeading", Input);
+            telemetry.addData("tarHeading", Setpoint);
+            updateTelemetry(telemetry);
+            //} while (Input < targetHeading && (System.currentTimeMillis() < (startTime + 6000)));
+        } while ((Math.abs(Input - Setpoint) > TOLERANCE)   && (System.currentTimeMillis() < (startTime + 6000)));
+
+        telemetry.addData("curHeading", Input);
+        telemetry.addData("tarHeading", Setpoint);
+        telemetry.addData("leftPwr", -Output);
+        telemetry.addData("rightPwr", Output);
+        //telemetry.addData("headingErr", headingError);
+        //telemetry.addData("driveSteer", driveSteering);
+        //telemetry.addData("DRIVEGAIN", DRIVEGAIN);
+        updateTelemetry(telemetry);
+
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        return Input;
+    }
+
+    public double turnGyro2(float targetHeading) {
+        int original_anglez = 0;
+        ModernRoboticsI2cGyro gyro;
+        int xVal, yVal, zVal = 0;
+        int heading = 0;
+        int angleZ = 0;
+        float MIDPOWER = 0;
+        double DRIVEGAIN = 1;
+        double TOLERANCE = .1;
+        int timer = 0;
+        double currentHeading, headingError, driveSteering, leftPower, rightPower, oldCurrentHeading = 0.0;
+        long startTime = 0;
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        //calibrateGyro();
+        gyro.resetZAxisIntegrator();
+
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        //telemetry.addData("Current Pos", currentHeading);
+        //updateTelemetry(telemetry);
+
+        startTime = System.currentTimeMillis();
+        //currentHeading = gyro.getHeading();
+        SetTunings(.01, 0, 0.2);
+
+        Setpoint = targetHeading;
+        Input = gyro.getHeading();
+        //Input = currentHeading;
+
+        do {
+
+            ComputePID();
+            robot.leftMotor.setPower(Output);
+            robot.rightMotor.setPower(-Output);
+            timer++;
+            //sleep(1000);
+            Input = gyro.getHeading();
+            //sleep(1000);
+            telemetry.addData("curHeading", Input);
+            telemetry.addData("tarHeading", Setpoint);
+            updateTelemetry(telemetry);
+            //} while (Input < targetHeading && (System.currentTimeMillis() < (startTime + 6000)));
+        } while ((Math.abs(Input - Setpoint) > TOLERANCE)   && (System.currentTimeMillis() < (startTime + 6000)));
+
+        telemetry.addData("curHeading", Input);
+        telemetry.addData("tarHeading", Setpoint);
+        telemetry.addData("leftPwr", -Output);
+        telemetry.addData("rightPwr", Output);
+        //telemetry.addData("headingErr", headingError);
+        //telemetry.addData("driveSteer", driveSteering);
+        //telemetry.addData("DRIVEGAIN", DRIVEGAIN);
+        updateTelemetry(telemetry);
+
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        return Input;
+    }
+
+
     /* Declare OpMode members. */
     private HardwarePushbot robot = new HardwarePushbot();
 
@@ -77,6 +254,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          */
         telemetry.addData("Say", "init start");
         try {
+            robot.lifter = hardwareMap.dcMotor.get("lifter");
             robot.rightMotor = hardwareMap.dcMotor.get("right_drive");
             robot.leftMotor = hardwareMap.dcMotor.get("left_drive");
             //motorVacuum = hardwareMap.dcMotor.get("vacuum");
@@ -242,6 +420,97 @@ robot.motorShooter.setPower(shooterPower);
 
         //telemetry.addData("heading: ", "")
 
+
+        //FROM THIS POINT ON IS NEW. IF NULL POINTER IT IS PROBABLY HERE!!!
+
+
+
+        //self streignening
+        if(gamepad1.x) {
+            float gyroReading = robot.gyro.getHeading();
+            float quad1Correction = 0;
+            float quad2Correction = 90;
+            float quad3Correction = 180;
+            float quad4Correction = 360;
+            float turnAmount1 = 0;
+
+            boolean calc1Complete = false;
+            boolean calc2Complete = false;
+            float turnError = 94.5f;
+            float gyroError = 5.5f;
+            if (robot.gyro.getHeading() > 90 && robot.gyro.getHeading() < 180) {
+
+                turnAmount1 =  (gyroReading - gyroError)- (quad2Correction - gyroError);
+                calc1Complete = true;
+            } else if (robot.gyro.getHeading() > 180 && robot.gyro.getHeading() > 270) {
+                turnAmount1 = (gyroReading - gyroError) - (quad3Correction - gyroError);
+                calc1Complete = true;
+            } else if (robot.gyro.getHeading() > 270 && robot.gyro.getHeading() < 360) {
+                turnAmount1 = (gyroReading - gyroError) - (quad4Correction - gyroError);
+                calc1Complete = true;
+            } else if (robot.gyro.getHeading() > 0 && robot.gyro.getHeading() < 90) {
+                turnAmount1 = (gyroReading - gyroError)- (quad1Correction - gyroError);
+                calc1Complete = true;
+            } else {
+                calc1Complete = false;
+            }
+            if (calc1Complete) {
+                turnGyro2(turnAmount1);
+            }
+        }
+
+        if(gamepad1.y) {
+            float gyroReading = robot.gyro.getHeading();
+            float quad1Correction = 0;
+            float quad2Correction = 180;
+            float quad3Correction = 270;
+            float quad4Correction = 360;
+            float turnAmount1 = 0;
+            float turnAmount2 = 0;
+            boolean calc1Complete = false;
+            boolean calc2Complete = false;
+            float turnError = 94.5f;
+            float gyroError = 5.5f;
+            if (robot.gyro.getHeading() < 90 && robot.gyro.getHeading() > 0) {
+                //do nothing
+                turnAmount1 =  quad1Correction - (gyroReading - gyroError);
+                calc1Complete = true;
+            } else if (robot.gyro.getHeading() < 180 && robot.gyro.getHeading() > 90) {
+                turnAmount1 = quad2Correction - (gyroReading -gyroError);
+                calc1Complete = true;
+            } else if (robot.gyro.getHeading() < 270 && robot.gyro.getHeading() > 180) {
+                turnAmount1 = quad3Correction - (gyroReading - gyroError);
+                calc1Complete = true;
+            } else if (robot.gyro.getHeading() < 360 && robot.gyro.getHeading() > 270) {
+                turnAmount1 = quad4Correction - (gyroReading -gyroError);
+                calc1Complete = true;
+            } else {
+                calc1Complete = false;
+            }
+
+            if(calc1Complete){
+                turnAmount2 = turnError - turnAmount1;
+                calc2Complete = true;
+            }
+
+            if (calc2Complete) {
+                turnGyro(turnAmount2);
+            }
+        }
+
+//lifter
+        float liftingStick = gamepad2.right_stick_y;
+        if (liftingStick > 1.0) {
+            liftingStick = 1;
+        }
+        if (liftingStick < -1.0) {
+            liftingStick = -1;
+        }
+
+        robot.lifter.setPower(liftingStick);
+
+//gyro telemetry
+        telemetry.addData("gyro Reading: ", robot.gyro.getHeading());
 
     }
 

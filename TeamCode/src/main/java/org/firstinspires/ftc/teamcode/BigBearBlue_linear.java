@@ -13,6 +13,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 
+
+
 /**
  * Created by vasudevfamily on 10/27/16.
  */
@@ -40,13 +42,19 @@ boolean targetColor = true;
 
         telemetry.addData(">", "Gyro Calibrating. Do Not move!");
         telemetry.update();
+
         gyro.calibrate();
-        gyro.resetZAxisIntegrator();
         // make sure the gyro is calibrated.
+        int i = 0;
         while (!isStopRequested() && gyro.isCalibrating()) {
             sleep(50);
             idle();
+            i++;
+            telemetry.addData("calibrateGyro calibrating", gyro.isCalibrating());
+            telemetry.addData("calibrateGyro calibrating", i);
+            telemetry.update();
         }
+        gyro.resetZAxisIntegrator();
     }
 
     long lastTime;
@@ -430,7 +438,7 @@ public void squareOnLine2(){
         white = robot.lightSensor.getLightDetected();
         white2 = robot.lightSensor2.getLightDetected();
         if(white >.8){
-            robot.leftMotor.setPower(0.0);
+            //robot.leftMotor.setPower(0.0);
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -441,7 +449,7 @@ public void squareOnLine2(){
         if( white2 > .8){
             telemetry.addData("checkpoint4","!");
             updateTelemetry(telemetry);
-            robot.rightMotor.setPower(0.0);
+            //robot.rightMotor.setPower(0.0);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -585,9 +593,13 @@ public void squareOnLine2(){
         //robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        telemetry.addData("ready to go", "all is ready");
+        //telemetry.addData("ready to go", "all is ready");
         calibrateGyro();
-
+        telemetry.addData("Calibration", "COMPLETE...ready for Play");
+        
+        telemetry.update();
+        robot.lightSensor.enableLed(true);
+        robot.lightSensor2.enableLed(true);
         /*while(i<1000000) {
             telemetry.addData("light1=", robot.lightSensor.getLightDetected());
             telemetry.addData("light2=", robot.lightSensor.getLightDetected());
@@ -601,11 +613,50 @@ public void squareOnLine2(){
 
 
 
+
         /* START KATIE CODE FROM 2/21 */
 
+        //driveForwards(2.5,2.5,1);
+        //driveForwards(.5,0,1);
+        //squareOnLine2();
+
         driveForwards(2.5,2.5,1);
+        telemetry.addData(">>", "Mark 1");
+        telemetry.update();
+
         driveForwards(.5,0,1);
+        telemetry.addData(">>", "Mark 2");
+        telemetry.update();
+
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        telemetry.addData(">>", "Mark 3");
+        telemetry.update();
+
         squareOnLine2();
+        telemetry.addData(">>", "Mark 4");
+        telemetry.update();
+
+        sleep(100);
+        telemetry.addData("reached here: ", "1");
+        updateTelemetry(telemetry);
+
+        driveBackwards(.3,.3,.7);
+        telemetry.addData(">>", "Mark 5");
+        telemetry.update();
+
+        turnGyro(84.5f);
+        telemetry.addData(">>", "Mark 6");
+        telemetry.update();
+
+        //calibrateGyro();
+        /*if(robot.colorSensor.blue() > robot.colorSensor.red()){
+            turnLeft(.2,.2,.5);
+            driveForwards(.4,.4,.5);
+        }
+        else{
+            driveForwards(.5,.5,.5);
+        }*/
 
 
 
