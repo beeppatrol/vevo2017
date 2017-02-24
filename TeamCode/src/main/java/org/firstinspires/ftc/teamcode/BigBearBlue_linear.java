@@ -3,16 +3,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.I2cAddr;
-import com.qualcomm.robotcore.hardware.I2cAddrConfig;
-import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-
 
 
 /**
@@ -438,7 +432,7 @@ public void squareOnLine2(){
         white = robot.lightSensor.getLightDetected();
         white2 = robot.lightSensor2.getLightDetected();
         if(white >.8){
-            //robot.leftMotor.setPower(0.0);
+            robot.leftMotor.setPower(0.0);
             robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -449,7 +443,7 @@ public void squareOnLine2(){
         if( white2 > .8){
             telemetry.addData("checkpoint4","!");
             updateTelemetry(telemetry);
-            //robot.rightMotor.setPower(0.0);
+            robot.rightMotor.setPower(0.0);
             robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -596,7 +590,7 @@ public void squareOnLine2(){
         //telemetry.addData("ready to go", "all is ready");
         calibrateGyro();
         telemetry.addData("Calibration", "COMPLETE...ready for Play");
-        
+
         telemetry.update();
         robot.lightSensor.enableLed(true);
         robot.lightSensor2.enableLed(true);
