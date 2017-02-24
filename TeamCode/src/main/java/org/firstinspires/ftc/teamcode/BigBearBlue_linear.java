@@ -146,6 +146,68 @@ boolean targetColor = true;
         return Input;
     }
 
+    public double turnGyro2(float targetHeading) {
+        int original_anglez = 0;
+        ModernRoboticsI2cGyro gyro;
+        int xVal, yVal, zVal = 0;
+        int heading = 0;
+        int angleZ = 0;
+        float MIDPOWER = 0;
+        double DRIVEGAIN = 1;
+        double TOLERANCE = .1;
+        int timer = 0;
+        double currentHeading, headingError, driveSteering, leftPower, rightPower, oldCurrentHeading = 0.0;
+        long startTime = 0;
+        gyro = (ModernRoboticsI2cGyro) hardwareMap.gyroSensor.get("gyro");
+        //calibrateGyro();
+        gyro.resetZAxisIntegrator();
+
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        //telemetry.addData("Current Pos", currentHeading);
+        //updateTelemetry(telemetry);
+
+        startTime = System.currentTimeMillis();
+        //currentHeading = gyro.getHeading();
+        SetTunings(.01, 0, 0.2);
+
+        Setpoint = targetHeading;
+        Input = gyro.getHeading();
+        //Input = currentHeading;
+
+        do {
+
+            ComputePID();
+            robot.leftMotor.setPower(Output);
+            robot.rightMotor.setPower(-Output);
+            timer++;
+            //sleep(1000);
+            Input = gyro.getHeading();
+            //sleep(1000);
+            telemetry.addData("curHeading", Input);
+            telemetry.addData("tarHeading", Setpoint);
+            updateTelemetry(telemetry);
+            //} while (Input < targetHeading && (System.currentTimeMillis() < (startTime + 6000)));
+        } while ((Math.abs(Input - Setpoint) > TOLERANCE)   && (System.currentTimeMillis() < (startTime + 6000)));
+
+        telemetry.addData("curHeading", Input);
+        telemetry.addData("tarHeading", Setpoint);
+        telemetry.addData("leftPwr", Output);
+        telemetry.addData("rightPwr", -Output);
+        //telemetry.addData("headingErr", headingError);
+        //telemetry.addData("driveSteer", driveSteering);
+        //telemetry.addData("DRIVEGAIN", DRIVEGAIN);
+        updateTelemetry(telemetry);
+
+
+        robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        return Input;
+    }
+
     public void driveForwards(double rightAmount, double leftAmount, double speed) {
 
         telemetry.addData("say", "Drive forwards VROOOM!");
@@ -620,7 +682,7 @@ public void squareOnLine2(){
         //driveForwards(.5,0,1);
         //squareOnLine2();
 
-        driveForwards(2.5,2.5,1);
+       /* driveForwards(2.5,2.5,1);
         telemetry.addData(">>", "Mark 1");
         telemetry.update();
 
@@ -641,14 +703,23 @@ public void squareOnLine2(){
         telemetry.addData("reached here: ", "1");
         updateTelemetry(telemetry);
 
-        driveBackwards(.3,.3,.7);
+        driveBackwards(.7,.7,.7);
         telemetry.addData(">>", "Mark 5");
         telemetry.update();
 
-        turnGyro(84.5f);
+        turnGyro(82.5f);
         telemetry.addData(">>", "Mark 6");
         telemetry.update();
+        driveForwards(.3,.3,.3);*/
 
+/*
+        if(robot.colorSensor.blue() > robot.colorSensor.red()){
+            driveForwards(1,1,.5);
+        }
+        else{
+            turnRight(.4,.4,.4);
+            driveForwards(1,1,.5);
+        }*/
         //calibrateGyro();
         /*if(robot.colorSensor.blue() > robot.colorSensor.red()){
             turnLeft(.2,.2,.5);
@@ -666,8 +737,37 @@ public void squareOnLine2(){
 
         /* END KATIE CODE FROM 2/21 */
 
+        /*start from 22/23/17
+         */
 
 
+        driveForwards(3,3,1);
+
+        turnGyro(84.5f);
+
+        driveForwards(3.3,3.3,.3);
+
+        driveBackwards(.2,.2,.6);
+
+        if(robot.colorSensor.red() > robot.colorSensor.blue()){
+
+            sleep(7000);
+            driveForwards(.3,.3,.5);
+            sleep(100);
+            driveBackwards(.2, .2, .2);
+       // }
+
+        //else{
+           turnLeft(.45,.45,.9);
+        squareOnLine2();
+            driveBackwards(.4,.4,.4);
+            turnGyro(84.5f);
+            driveForwards(.5,.5,.5);
+            if(robot.colorSensor.red() > robot.colorSensor.blue()){
+                sleep(7000);
+                driveForwards(.3,.3,.3);
+                driveBackwards(.3,.3,.3);
+            }
 
 
 
@@ -840,7 +940,7 @@ public void squareOnLine2(){
 
 
 
-    }
+    }}
 //}
 
 

@@ -15,7 +15,7 @@ android {
         config {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('/Users/vasudevfamily/Documents/beeppatrol/vevo2017/ftcapp/libs/ftc.debug.keystore')
+            storeFile file('C:/Users/PerkinsFam/Documents/beeppatrol/vevo2017/libs/ftc.debug.keystore')
             storePassword 'android'
         }
     }
