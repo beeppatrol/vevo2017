@@ -247,7 +247,6 @@ boolean targetColor = true;
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.leftMotor.setPower(0);
         robot.rightMotor.setPower(0);
-
     }
 
     public void driveBackwards(double rightAmount, double leftAmount, double speed) {
@@ -323,6 +322,7 @@ boolean targetColor = true;
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
 
@@ -648,130 +648,87 @@ public void squareOnLine2(){
 
         robot.rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         idle();
 
-        //robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //telemetry.addData("ready to go", "all is ready");
         calibrateGyro();
         telemetry.addData("Calibration", "COMPLETE...ready for Play");
-        
         telemetry.update();
-        robot.lightSensor.enableLed(true);
-        robot.lightSensor2.enableLed(true);
-        /*while(i<1000000) {
-            telemetry.addData("light1=", robot.lightSensor.getLightDetected());
-            telemetry.addData("light2=", robot.lightSensor.getLightDetected());
-            updateTelemetry(telemetry);
-            i++;
-        }*/
-
 
         waitForStart();
         robot.colorSensor.enableLed(false);
 
+        driveForwards(2.5,2.5,.7);
 
-
-
-        /* START KATIE CODE FROM 2/21 */
-
-        //driveForwards(2.5,2.5,1);
-        //driveForwards(.5,0,1);
-        //squareOnLine2();
-
-       /* driveForwards(2.5,2.5,1);
-        telemetry.addData(">>", "Mark 1");
-        telemetry.update();
-
-        driveForwards(.5,0,1);
-        telemetry.addData(">>", "Mark 2");
-        telemetry.update();
-
-        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        telemetry.addData(">>", "Mark 3");
-        telemetry.update();
-
-        squareOnLine2();
-        telemetry.addData(">>", "Mark 4");
-        telemetry.update();
-
-        sleep(100);
-        telemetry.addData("reached here: ", "1");
-        updateTelemetry(telemetry);
-
-        driveBackwards(.7,.7,.7);
-        telemetry.addData(">>", "Mark 5");
-        telemetry.update();
-
-        turnGyro(82.5f);
-        telemetry.addData(">>", "Mark 6");
-        telemetry.update();
-        driveForwards(.3,.3,.3);*/
-
-/*
-        if(robot.colorSensor.blue() > robot.colorSensor.red()){
-            driveForwards(1,1,.5);
-        }
-        else{
-            turnRight(.4,.4,.4);
-            driveForwards(1,1,.5);
-        }*/
-        //calibrateGyro();
-        /*if(robot.colorSensor.blue() > robot.colorSensor.red()){
-            turnLeft(.2,.2,.5);
-            driveForwards(.4,.4,.5);
-        }
-        else{
-            driveForwards(.5,.5,.5);
-        }*/
-
-
-
-
-
-
-
-        /* END KATIE CODE FROM 2/21 */
-
-        /*start from 22/23/17
-         */
-
-
-        driveForwards(3,3,1);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        idle();
 
         turnGyro(84.5f);
 
-        driveForwards(3.3,3.3,.3);
+        robot.rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        idle();
+        driveForwards(1.4,1.4,1);
+        driveForwards(.8,.8,.1);
 
-        driveBackwards(.2,.2,.6);
+        while (robot.colorSensor.red() == robot.colorSensor.blue())
+        {
+            ;
+            //wait for a difference in color...since the beacons flash and we may not catch the
+            // color right away.
+        }
+
+        telemetry.addData("red reading", robot.colorSensor.red());
+        telemetry.addData("blue reading", robot.colorSensor.blue());
+        telemetry.update();
 
         if(robot.colorSensor.red() > robot.colorSensor.blue()){
 
-            sleep(7000);
-            driveForwards(.3,.3,.5);
-            sleep(100);
+            telemetry.addData("Sensed Red...waiting 7 seconds", "");
+            telemetry.update();
+            sleep(5000);
             driveBackwards(.2, .2, .2);
-       // }
+            driveForwards(.3,.3,.1);
+            sleep(100);
+            //driveBackwards(.2, .2, .2);
+            //driveBackwards(1.2,1.2,.6);
+        }
 
-        //else{
-           turnLeft(.45,.45,.9);
-        squareOnLine2();
-            driveBackwards(.4,.4,.4);
-            turnGyro(84.5f);
-            driveForwards(.5,.5,.5);
-            if(robot.colorSensor.red() > robot.colorSensor.blue()){
-                sleep(7000);
-                driveForwards(.3,.3,.3);
-                driveBackwards(.3,.3,.3);
-            }
+        driveBackwards(1.6,1.6,.6);
+        telemetry.addData("Beacon is blue now...wait turn shoot","");
+        telemetry.update();
+        sleep(50);
 
+        turnLeft(1,1,.5);
 
+        robot.rightMotor.setPower(0);
+        robot.leftMotor.setPower(0);
+        //turnGyro(200);
+        telemetry.addData("Turned and ready to shoot", "");
+        sleep(50);
 
+        robot.motorShooter.setPower(1);
 
+        sleep(500);
+        robot.particle_grabber.setPower(1.0);
+        sleep(500);
+        robot.motorShooter.setPower(0.0);
+
+        sleep(1000);
+        //jolt the robot forward
+        driveForwards(.1,.1,1);
+        robot.particle_grabber.setPower(0.0);
+        robot.motorShooter.setPower(1.0);
+
+        sleep(1000);
+
+        robot.motorShooter.setPower(0.0);
 
 
 
@@ -940,7 +897,7 @@ public void squareOnLine2(){
 
 
 
-    }}
+    }
 //}
 
 
