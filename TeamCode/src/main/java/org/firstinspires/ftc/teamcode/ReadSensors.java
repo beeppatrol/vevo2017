@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import android.graphics.Color;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
@@ -368,6 +369,8 @@ public void squareOnLine2(){
 
         while(true) {
             robot.colorSensor.enableLed(false);
+            robot.lightSensor.enableLed(true);
+            robot.lightSensor2.enableLed(true);
             telemetry.addData("color sensor blue =", robot.colorSensor.blue());
             telemetry.addData("color sensor red =", robot.colorSensor.red());
             telemetry.addData("light sensor 1 =", robot.lightSensor.getLightDetected());
