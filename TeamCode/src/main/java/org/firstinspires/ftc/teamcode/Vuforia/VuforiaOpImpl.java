@@ -58,7 +58,7 @@ public class VuforiaOpImpl extends LinearOpMode {
         beacons.activate();  // vuforia starts tracking for objects (no point calling this until after waitForStart() )
 
 
-        // *** START tracking code  ** //
+        // *** START navigation code  ** //
 
             driveL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             driveR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -142,7 +142,7 @@ public class VuforiaOpImpl extends LinearOpMode {
             driveL.setPower(0);
             driveR.setPower(0);
 
-        // *** END tracking code  ** //
+        // *** END navigation code  ** //
 
 
 
